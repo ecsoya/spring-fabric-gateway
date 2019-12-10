@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import io.ecsoya.fabric.FabricQueryRequest;
 import io.ecsoya.fabric.FabricQueryResponse;
@@ -17,8 +16,11 @@ public abstract class FabricBaseServiceImpl implements IFabricBaseService {
 
 	private Logger logger = LoggerFactory.getLogger(FabricBaseServiceImpl.class);
 
-	@Autowired
 	protected FabricContext fabricContext;
+
+	public FabricBaseServiceImpl(FabricContext fabricContext) {
+		this.fabricContext = fabricContext;
+	}
 
 	@Override
 	public FabricResponse execute(FabricRequest request) {

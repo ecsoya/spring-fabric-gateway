@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import io.ecsoya.fabric.FabricPagination;
 import io.ecsoya.fabric.FabricPaginationQuery;
 import io.ecsoya.fabric.FabricQueryRequest;
@@ -21,11 +18,13 @@ import io.ecsoya.fabric.service.IChaincode;
 import io.ecsoya.fabric.service.IFabricInfoService;
 import io.ecsoya.fabric.utils.FabricUtil;
 
-@Service
 public class FabricInfoServiceImpl implements IFabricInfoService {
 
-	@Autowired
 	private FabricContext fabricContext;
+
+	public FabricInfoServiceImpl(FabricContext fabricContext) {
+		this.fabricContext = fabricContext;
+	}
 
 	@Override
 	public FabricQueryResponse<FabricLedger> queryFabricLedger() {

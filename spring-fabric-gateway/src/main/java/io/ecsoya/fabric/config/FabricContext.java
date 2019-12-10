@@ -1,6 +1,5 @@
 package io.ecsoya.fabric.config;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -34,9 +33,6 @@ import org.hyperledger.fabric.sdk.TransactionInfo;
 import org.hyperledger.fabric.sdk.TxReadWriteSetInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.stereotype.Component;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
@@ -51,11 +47,10 @@ import io.ecsoya.fabric.bean.FabricTransaction;
 import io.ecsoya.fabric.bean.FabricTransactionRWSet;
 import io.ecsoya.fabric.bean.gateway.FabricContract;
 
-@Component
 public class FabricContext {
 	private Logger logger = LoggerFactory.getLogger(FabricContext.class);
-	@Autowired
-	private FabricConfig fabricConfig;
+
+	private FabricProperties properties;
 
 	private Gateway.Builder builder;
 	private Network network;
@@ -63,6 +58,13 @@ public class FabricContext {
 
 	private Timer timer = new Timer(true);;
 	private TimerTask shutdownTask;
+
+	public FabricContext(FabricProperties properties) {
+		this.properties = properties;
+		if (properties == null) {
+			properties = new FabricProperties();
+		}
+	}
 
 	private void aboutToShutdown() {
 
@@ -107,38 +109,62 @@ public class FabricContext {
 
 		logger.debug("Initialize Fabric Context");
 
+		String channel = properties.getChannel();
+		if (channel == null || channel.equals("")) {
+			throw new RuntimeException(
+					"Initialize fabric gateway failed with invalid 'channel' name. Please make sure the channel is configured corrected by 'spring.fabric.channel'.");
+		}
+
+		String chaincode = properties.getChaincode();
+		if (chaincode == null || chaincode.equals("")) {
+			throw new RuntimeException(
+					"Initialize fabric gateway failed with invalid 'chaincode' name. Please make sure the chaincode is configured corrected by 'spring.fabric.chaincode'.");
+		}
+
 		Wallet wallet = createWallet();
 
-		InputStream configFile = getClassPathResource(fabricConfig.getProperty(FabricConfig.NETWORK_CONFIG_FILE));
+		InputStream configFile = properties.getNetworkContents();
 		if (configFile == null) {
-			throw new RuntimeException("Network config file can not be loaded");
+			throw new RuntimeException(
+					"Network config file can not be loaded. Please make sure 'spring.fabric.network.path' is configured.");
 		}
 
 		NetworkConfig config = NetworkConfig.fromYamlStream(configFile);
-		String identifyName = fabricConfig.getProperty(FabricConfig.WALLET_IDENTIFY);
-		if (config != null) {
-			OrgInfo client = config.getClientOrganization();
-			if (client != null) {
-				UserInfo peerAdmin = client.getPeerAdmin();
-				if (peerAdmin != null) {
-					Enrollment enrollment = peerAdmin.getEnrollment();
-					if (enrollment != null) {
-						Identity admin = new WalletIdentity(peerAdmin.getMspId(), enrollment.getCert(),
-								enrollment.getKey());
-						wallet.put(identifyName, admin);
-						logger.debug("Initialize Wallet " + identifyName);
-					}
+		if (config == null) {
+			throw new RuntimeException(
+					"Network config can not be loaded. Please make sure 'spring.fabric.network.path' is correct.");
+		}
+
+		FabricWalletProperties walletProps = properties.getWallet();
+
+		String identifyName = walletProps.getIdentify();
+		if (identifyName == null || identifyName.equals("")) {
+			identifyName = "admin";
+			logger.debug("Initialize Fabric Context: missing identify for wallet, and using default value: admin");
+		}
+
+		OrgInfo client = config.getClientOrganization();
+		if (client != null) {
+			UserInfo peerAdmin = client.getPeerAdmin();
+			if (peerAdmin != null) {
+				Enrollment enrollment = peerAdmin.getEnrollment();
+				if (enrollment != null) {
+					Identity admin = new WalletIdentity(peerAdmin.getMspId(), enrollment.getCert(),
+							enrollment.getKey());
+					wallet.put(identifyName, admin);
+					logger.debug("Initialize Wallet " + identifyName);
 				}
 			}
 		}
 
 		logger.debug("Initialize Gateway... ");
-		configFile = getClassPathResource(fabricConfig.getProperty(FabricConfig.NETWORK_CONFIG_FILE));
+		configFile = properties.getNetworkContents();
 		builder = Gateway.createBuilder().identity(wallet, identifyName).networkConfig(configFile);
 		Gateway gateway = builder.connect();
 
 		logger.debug("Initialize Network... ");
-		network = gateway.getNetwork(fabricConfig.getProperty(FabricConfig.CHANNEL));
+
+		network = gateway.getNetwork(channel);
 	}
 
 	private Wallet createWallet() {
@@ -149,17 +175,11 @@ public class FabricContext {
 		if (contract == null) {
 			if (network == null) {
 				Gateway gateway = builder.connect();
-				network = gateway.getNetwork(fabricConfig.getProperty(FabricConfig.CHANNEL));
+				network = gateway.getNetwork(properties.getChannel());
 			}
-			contract = new FabricContract(
-					(ContractImpl) network.getContract(fabricConfig.getProperty(FabricConfig.CHAINCODE)));
+			contract = new FabricContract((ContractImpl) network.getContract(properties.getChaincode()));
 		}
 		return contract;
-	}
-
-	private InputStream getClassPathResource(String name) throws IOException {
-		ClassPathResource resource = new ClassPathResource(name);
-		return resource.getInputStream();
 	}
 
 	public <T> FabricQueryResponse<T> query(FabricQueryRequest<T> queryRequest) {

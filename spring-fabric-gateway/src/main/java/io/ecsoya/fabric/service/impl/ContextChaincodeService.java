@@ -10,10 +10,15 @@ import io.ecsoya.fabric.FabricRequest;
 import io.ecsoya.fabric.bean.FabricBlock;
 import io.ecsoya.fabric.bean.FabricHistory;
 import io.ecsoya.fabric.bean.IFabricObject;
+import io.ecsoya.fabric.config.FabricContext;
 import io.ecsoya.fabric.service.IChaincodeService2;
 
 public abstract class ContextChaincodeService<T extends IFabricObject> extends ChaincodeServiceBase<T>
 		implements IChaincodeService2<T> {
+
+	public ContextChaincodeService(FabricContext fabricContext) {
+		super(fabricContext);
+	}
 
 	@Override
 	protected FabricRequest newRequest(String function, String... arguments) {

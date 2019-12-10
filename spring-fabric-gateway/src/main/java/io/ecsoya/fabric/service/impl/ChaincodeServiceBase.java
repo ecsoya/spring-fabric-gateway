@@ -12,6 +12,7 @@ import io.ecsoya.fabric.FabricResponse;
 import io.ecsoya.fabric.bean.FabricBlock;
 import io.ecsoya.fabric.bean.FabricHistory;
 import io.ecsoya.fabric.bean.IFabricObject;
+import io.ecsoya.fabric.config.FabricContext;
 import io.ecsoya.fabric.json.JsonUtils;
 import io.ecsoya.fabric.service.IChaincodeService;
 import io.ecsoya.fabric.utils.TypeResolver;
@@ -20,6 +21,10 @@ public abstract class ChaincodeServiceBase<T extends IFabricObject> extends Fabr
 		implements IChaincodeService<T> {
 
 	private Class<T> genericType;
+
+	public ChaincodeServiceBase(FabricContext fabricContext) {
+		super(fabricContext);
+	}
 
 	@SuppressWarnings("unchecked")
 	protected Class<T> getGenericType() {

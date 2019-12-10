@@ -5,6 +5,13 @@ import java.util.List;
 
 import lombok.Data;
 
+/**
+ * 
+ * Query with Page.
+ * 
+ * @author ecsoya
+ *
+ */
 @Data
 public class FabricPagination<T> {
 
