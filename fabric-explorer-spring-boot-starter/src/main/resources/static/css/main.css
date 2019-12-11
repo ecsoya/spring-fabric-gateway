@@ -1,0 +1,108 @@
+.breadcrumb-container .breadcrumb .breadcrumb-item a {
+	color: #212121;
+}
+
+.image {
+	width: 18px;
+	height: 18px;
+	margin-top: -4px;
+	margin-left: -15px;
+	margin-right: 5px;
+}
+
+.image-sm {
+	width: 16px;
+	height: 16px;
+	margin-top: -4px;
+	margin-left: -10px;
+	margin-right: 5px;
+}
+
+code {
+	font-size: 85%;
+	color: #606060;
+	word-break: break-word;
+	margin-bottom: 10px;
+}
+
+.bg-block {
+	background-color: rgb(0, 77, 105);
+}
+
+.bg-network {
+	background-color: rgb(241, 114, 66);
+}
+
+.bg-chaincode {
+	background-color: rgb(57, 123, 41);
+}
+
+.bg-fabric {
+	background-color: rgb(70, 90, 176);
+}
+
+card {
+	border-radius: .75rem;
+}
+
+.b-right {
+	border-right: 1.5px solid;
+	border-right-color: graytext;
+}
+
+.wrapper {
+	overflow: hidden;
+}
+
+.header-top {
+	background-color: #ffffff;
+	z-index: 1030;
+	position: relative;
+	padding: 0px 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 62px;
+	left: 0;
+	padding-left: 0px;
+	-webkit-box-shadow: 0 1px 15px rgba(0, 0, 0, 0.04), 0 1px 6px
+		rgba(0, 0, 0, 0.04);
+	-moz-box-shadow: 0 1px 15px rgba(0, 0, 0, 0.04), 0 1px 6px
+		rgba(0, 0, 0, 0.04);
+	box-shadow: 0 1px 15px rgba(0, 0, 0, 0.04), 0 1px 6px
+		rgba(0, 0, 0, 0.04);
+}
+
+.main-content {
+	background-color: #fff;
+	height: calc(100% - 135px);
+	width: 76%;
+	top: 65px;
+	left: 12%;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	-webkit-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+	position: relative;
+	overflow: auto;
+	
+	margin-bottom: 50px;
+	padding-bottom: 70px;
+}
+
+.footer {
+	background: #ffffff;
+	padding: 10px 10px;
+	padding-right: 20px;
+	border-top: 1px solid rgba(0, 0, 0, 0.04);
+	font-size: calc(0.875rem - 0.05rem);
+	-moz-transition: all 0.25s ease;
+	-o-transition: all 0.25s ease;
+	-webkit-transition: all 0.25s ease;
+	transition: all 0.25s ease;
+	bottom: 0%;
+	height: 40px;
+	left: 0%;
+	width: 100%;
+	position: fixed;
+}

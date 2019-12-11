@@ -23,4 +23,10 @@ public class FabricLedger {
 
 	private String name = "Fabric";
 
+	private String chaincodeName;
+
+	private String chaincode;
+
+	private int peers;
+
 }

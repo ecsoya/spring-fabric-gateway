@@ -7,7 +7,7 @@ import java.io.InputStream;
 
 public class FabricProperties {
 
-	private String chaincode;
+	private FabricChaincodeProperties chaincode;
 
 	private String channel;
 
@@ -15,17 +15,11 @@ public class FabricProperties {
 
 	private String name;
 
+	private int peers;
+
 	private FabricGatewayProperties gateway;
 
 	protected FabricNetworkProperties network;
-
-	public String getChaincode() {
-		return chaincode;
-	}
-
-	public void setChaincode(String chaincode) {
-		this.chaincode = chaincode;
-	}
 
 	public String getChannel() {
 		return channel;
@@ -90,5 +84,24 @@ public class FabricProperties {
 
 	public void setGateway(FabricGatewayProperties gateway) {
 		this.gateway = gateway;
+	}
+
+	public FabricChaincodeProperties getChaincode() {
+		if (chaincode == null) {
+			chaincode = new FabricChaincodeProperties();
+		}
+		return chaincode;
+	}
+
+	public void setChaincode(FabricChaincodeProperties chaincode) {
+		this.chaincode = chaincode;
+	}
+
+	public int getPeers() {
+		return peers;
+	}
+
+	public void setPeers(int peers) {
+		this.peers = peers;
 	}
 }

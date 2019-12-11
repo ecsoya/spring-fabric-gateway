@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>首页</title>
+
+<!-- Bootstrap core CSS -->
+<link rel="shortcut icon" th:href="@{favicon.ico}">
+<link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
+<link th:href="@{css/datatables.min.css}" rel="stylesheet">
+<link th:href="@{css/main.css}" rel="stylesheet">
+</head>
+<body>
+	<input type="hidden" id="baseURL"
+		th:value="${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':'
+		+ #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath() + '/'}" />
+	<div class="wrapper">
+		<header class="header-top">
+			<nav class="navbar navbar-light bg-light">
+				<div class="container">
+					<a
+						th:href="${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':'
+		+ #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath() + '/'}"
+						class="navbar-brand router-link-exact-active router-link-active"
+						style="font-size: 32px; color: #606060"><img
+						th:src="${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':'
+		+ #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath() + '/' + logo}"
+						width="40" height="40"
+						style="margin-right: 10px; margin-top: -6px;" alt=""
+						class="d-inline-block"> <label th:text="${title}"></label> </a>
+					<form class="form-inline" style="width: 40%;">
+						<input type="search" placeholder="区块高度/交易Hash" aria-label="Search"
+							class="form-control mr-sm-2 col-sm-10" id="query">
+						<button type="button" class="btn btn-outline-success my-2 my-sm-0"
+							onclick="performSearch()">搜索</button>
+					</form>
+
+					<a th:href="${hyperledgerExplorerUrl}"><img
+						th:src="@{img/hyperledger_explorer.svg}" width="150" height="32"
+						alt="打开超级账本浏览器" data-toggle="tooltip" title="打开超级账本浏览器"></a>
+				</div>
+			</nav>
+		</header>
+
+		<div class="main-content">
+			<div class="container">
+				<nav class="breadcrumb-container"
+					style="margin-top: 10px; margin-bottom: -30px;">
+					<ol class="breadcrumb bg-white">
+						<li class="breadcrumb-item"><a th:href="@{/}"><img
+								th:src="@{img/home.png}" class="image"> 首页 </a></li>
+						<li class="breadcrumb-item active" aria-current="page">区块链</li>
+						<li class="breadcrumb-item">概述</li>
+					</ol>
+				</nav>
+				<div class="row">
+					<div class="col-sm-3">
+						<div class="card mt-3 text-center">
+							<div class="card-header bg-block text-white ">区块信息</div>
+							<div class="card-body">
+								<div style="margin-bottom: 15px;">
+									<h3 id="ledgerHeight" data-toggle="tooltip" title="总区块数量">-</h3>
+								</div>
+								<div>
+									<img th:src="@{img/blocks.png}" class="image"> 总区块
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="card mt-3 text-center">
+							<div class="card-header bg-network  text-white">网络信息</div>
+
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-4 b-right">
+										<div style="margin-bottom: 15px;">
+											<h3 data-toggle="tooltip" title="Peer节点" id="peerInfo">6</h3>
+										</div>
+										<div>
+											<img th:src="@{img/peer.png}" class="image">节点
+										</div>
+									</div>
+									<div class="col-sm-4 b-right">
+										<div style="margin-bottom: 15px;">
+											<h3 data-toggle="tooltip" title="溯源平台，产品生产商" id="orgInfo">2</h3>
+										</div>
+										<div>
+											<img th:src="@{img/org.png}" class="image"> 组织
+										</div>
+
+									</div>
+									<div class="col-sm-4">
+										<div style="margin-bottom: 15px;">
+											<h3 data-toggle="tooltip" title="通用通道" id="commonInfo">common</h3>
+										</div>
+										<div>
+											<img th:src="@{img/channel.png}" class="image">通道
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-3">
+						<div class="card mt-3 text-center">
+							<div class="card-header bg-chaincode text-white">智能合约</div>
+							<div class="card-body">
+								<div style="margin-bottom: 15px;">
+									<h3 data-toggle="tooltip" title="溯源智能合约，包含产品溯源和原材料溯源" id="chaincodeInfo">区块链溯源合约</h3>
+								</div>
+								<div>
+									<img th:src="@{img/smartcontract.png}" class="image-sm">
+									名称
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-12">
+						<div>
+							<div class="card mt-3">
+								<div class="card-header bg-fabric text-center text-white">
+									区块列表</div>
+								<table class="table table-styled"
+									style="width: 100%; margin-top: -15px; color: #606060"
+									id="dataTable">
+									<thead>
+										<th>#</th>
+										<th>区块哈希</th>
+										<th>数据哈希</th>
+										<th>交易数量</th>
+									</thead>
+								</table>
+								<div class="card-body text-center"></div>
+							</div>
+						</div>
+
+						<div class="row mt-3 justify-content-center">
+							<button class="btn btn-primary" type="button" id="loadMoreButton"
+								onclick="loadMore()" data-toggle="tooltip" title="加载前5个区块信息">加载更多</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer class="footer bg-light">
+			<div class="container">
+				<div class="row justify-content-center">
+					<span class="copyright" style="color: #606060">©版权所有 <label
+						th:text="${copyright}"></label>
+					</span>
+				</div>
+			</div>
+		</footer>
+
+	</div>
+	<!-- Bootstrap core JavaScript -->
+	<script th:src="@{js/jquery.min.js}"></script>
+	<script th:src="@{js/popper.min.js}"></script>
+	<script th:src="@{js/bootstrap.min.js}"></script>
+	<script th:src="@{js/datatables.min.js}"></script>
+	<script th:src="@{js/common.js}"></script>
+	<script th:src="@{js/index.js}"></script>
+</body>
+
+</html>

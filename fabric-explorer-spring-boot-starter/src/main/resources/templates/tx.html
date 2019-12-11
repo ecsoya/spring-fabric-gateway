@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>交易信息</title>
+
+<!-- Bootstrap core CSS -->
+<link rel="shortcut icon" th:href="@{favicon.ico}">
+<link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
+<link th:href="@{css/datatables.min.css}" rel="stylesheet">
+<link th:href="@{css/main.css}" rel="stylesheet">
+<style type="text/css">
+table {
+	table-layout: fixed;
+}
+
+table td {
+	word-wrap: break-word;
+	max-width: 400px;
+}
+
+#example td {
+	white-space: inherit;
+}
+</style>
+</head>
+<body>
+	<input type="hidden" id="baseURL"
+		th:value="${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':'
+		+ #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath() + '/'}" />
+	<input type="hidden" id="txid" th:value="${txid}" />
+	<div class="wrapper">
+		<header class="header-top">
+			<nav class="navbar navbar-light bg-light">
+				<div class="container">
+					<a
+						th:href="${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':'
+		+ #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath() + '/'}"
+						class="navbar-brand router-link-exact-active router-link-active"
+						style="font-size: 32px; color: #606060"><img
+						th:src="${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':'
+		+ #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath() + '/' + logo}"
+						width="40" height="40"
+						style="margin-right: 10px; margin-top: -6px;" alt=""
+						class="d-inline-block"> <label th:text="${title}"></label> </a>
+					<form class="form-inline" style="width: 40%;">
+						<input type="search" placeholder="区块高度/交易Hash" aria-label="Search"
+							class="form-control mr-sm-2 col-sm-10" id="query">
+						<button type="button" class="btn btn-outline-success my-2 my-sm-0"
+							onclick="performSearch()">搜索</button>
+					</form>
+
+					<a th:href="${hyperledgerExplorerUrl}"><img
+						th:src="@{img/hyperledger_explorer.svg}" width="150" height="32"
+						alt="打开超级账本浏览器" data-toggle="tooltip" title="打开超级账本浏览器"></a>
+				</div>
+			</nav>
+		</header>
+		<div class="main-content">
+			<div class="container">
+				<nav class="breadcrumb-container" style="margin-top: 10px;margin-bottom:-30px;">
+					<ol class="breadcrumb bg-white">
+						<li class="breadcrumb-item"><a th:href="@{/}"><img
+								th:src="@{img/home.png}" class="image"> 首页 </a></li>
+						<li class="breadcrumb-item active" aria-current="page">区块链</li>
+						<li class="breadcrumb-item">交易信息</li>
+					</ol>
+				</nav>
+				<div class="row">
+					<div class="col-sm-12">
+						<div>
+							<div class="card mt-3">
+								<div class="card-header bg-fabric text-center text-white">交易信息</div>
+								<ul class="list-group list-group-flush">
+									<li class="list-group-item"><div class="row">
+											<div class="col-sm-3">
+												<strong>ID</strong>
+											</div>
+											<div class="col-sm-9">
+												<code id="txIdDisplay"> </code>
+											</div>
+										</div></li>
+									<li class="list-group-item"><div class="row">
+											<div class="col-sm-3">
+												<strong>时间</strong>
+											</div>
+											<div class="col-sm-9">
+												<code id="txDateDisplay"> </code>
+											</div>
+										</div></li>
+									<li class="list-group-item"><div class="row">
+											<div class="col-sm-3">
+												<strong>提交者</strong>
+											</div>
+											<div class="col-sm-9">
+												<code id="txCreatorDisplay"> </code>
+											</div>
+										</div></li>
+								</ul>
+							</div>
+							<div class="card mt-3">
+								<div class="card-header bg-fabric text-center text-white">
+									交易读取集</div>
+								<table class="table table-styled" style="width: 100%"
+									id="readTable">
+									<thead>
+										<th width="5%">#</th>
+										<th width="30%">Key</th>
+										<th width="45%">读取账本</th>
+										<th width="20%">其它</th>
+									</thead>
+								</table>
+							</div>
+							<div class="card mt-3">
+								<div class="card-header bg-fabric text-center text-white">
+									交易写入集</div>
+								<table class="table table-styled " style="width: 100%"
+									id="writeTable">
+									<thead>
+										<th width="5%">#</th>
+										<th width="30%">Key</th>
+										<th width="45%">写入账本</th>
+										<th width="20%">删除</th>
+									</thead>
+								</table>
+							</div>
+
+							<div class="row mt-3 justify-content-center">
+								<a class="btn btn-primary"
+									th:href="${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':'
+		+ #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath() + '/'}">返回首页</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer class="footer bg-light">
+			<div class="container">
+				<div class="row justify-content-center">
+					<span class="copyright" style="color: #606060">©版权所有 <label
+						th:text="${copyright}"></label>
+					</span>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<!-- Bootstrap core JavaScript -->
+	<script th:src="@{js/jquery.min.js}"></script>
+	<script th:src="@{js/popper.min.js}"></script>
+	<script th:src="@{js/bootstrap.min.js}"></script>
+	<script th:src="@{js/datatables.min.js}"></script>
+	<script th:src="@{js/common.js}"></script>
+	<script th:src="@{js/tx.js}"></script>
+</body>
+
+</html>

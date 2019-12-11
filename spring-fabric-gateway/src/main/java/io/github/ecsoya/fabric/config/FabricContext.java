@@ -117,8 +117,8 @@ public class FabricContext {
 					"Initialize fabric gateway failed with invalid 'channel' name. Please make sure the channel is configured corrected by 'spring.fabric.channel'.");
 		}
 
-		String chaincode = properties.getChaincode();
-		if (chaincode == null || chaincode.equals("")) {
+		FabricChaincodeProperties chaincode = properties.getChaincode();
+		if (chaincode == null || chaincode.getIdentify() == null || chaincode.getIdentify().equals("")) {
 			throw new FabricException(
 					"Initialize fabric gateway failed with invalid 'chaincode' name. Please make sure the chaincode is configured corrected by 'spring.fabric.chaincode'.");
 		}
@@ -194,7 +194,7 @@ public class FabricContext {
 				Gateway gateway = builder.connect();
 				network = gateway.getNetwork(properties.getChannel());
 			}
-			contract = new FabricContract((ContractImpl) network.getContract(properties.getChaincode()));
+			contract = new FabricContract((ContractImpl) network.getContract(properties.getChaincode().getIdentify()));
 		}
 		return contract;
 	}
@@ -306,6 +306,9 @@ public class FabricContext {
 			ledger.setPreviousHash(Hex.encodeHexString(info.getPreviousBlockHash()));
 			ledger.setName(properties.getName());
 			ledger.setOrgs(properties.getOrganizations());
+			ledger.setChaincode(properties.getChaincode().getIdentify());
+			ledger.setChaincodeName(properties.getChaincode().getName());
+			ledger.setPeers(properties.getPeers());
 			return FabricQueryResponse.success(ledger);
 		} catch (Exception e) {
 			e.printStackTrace();
