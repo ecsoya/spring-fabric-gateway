@@ -1,7 +1,6 @@
-var basePath = $('#baseURL').val();
-
-var blockNumber = $('#height').val();
-
+const basePath = $('#baseURL').val();
+const blockNumber = $('#height').val();
+const viewTitle = $('#viewTitle').val();
 $(document).ready(function() {
 	queryBlockInfo();
 	initDataTable();
@@ -32,58 +31,54 @@ function queryBlockInfo() {
 }
 
 function initDataTable() {
-	var table = $('#dataTable')
-			.DataTable(
-					{
-						"ajax" : function(data, callback) {
-							var height = $('#height').val();
-							$
-									.ajax(
-											{
-												url : basePath
-														+ "querytransactions?blockNumber="
-														+ height,
-											}).then(function success(res) {
-										callback(res);
-										$('[data-toggle="tooltip"]').tooltip()
-									}, function fail(data, status) {
+	var table = $('#dataTable').DataTable(
+			{
+				"ajax" : function(data, callback) {
+					var height = $('#height').val();
+					$.ajax(
+							{
+								url : basePath
+										+ "querytransactions?blockNumber="
+										+ height,
+							}).then(function success(res) {
+						callback(res);
+						$('[data-toggle="tooltip"]').tooltip()
+					}, function fail(data, status) {
 
-									});
-						},
-						"paging" : false,
-						"ordering" : false,
-						"info" : false,
-						"searching" : false,
-						"processing" : true,
-						"serverSide" : true,
-						"language" : {
-							"emptyTable" : "空",
-							"processing" : "正在加载……"
-						},
-						"columns" : [
-								{
-									"name" : 'index',
-									"data" : function(row) {
-										return row.index + 1;
-									}
-								},
-								{
-									"name" : "txId",
-									"data" : function(row) {
-										return '<a href="'
-												+ basePath
-												+ 'tx?txid='
-												+ row.txId
-												+ '" data-toggle="tooltip" title="点击查看交易内容">'
-												+ row.txId + '</a>';
-									}
-								}, {
-									"name" : "date",
-									"data" : function(row){
-										return format(row.date);
-									}
-								} ]
 					});
+				},
+				"paging" : false,
+				"ordering" : false,
+				"info" : false,
+				"searching" : false,
+				"processing" : true,
+				"serverSide" : true,
+				"language" : {
+					"emptyTable" : "-",
+					"processing" : "Loading…"
+				},
+				"columns" : [
+						{
+							"name" : 'index',
+							"data" : function(row) {
+								return row.index + 1;
+							}
+						},
+						{
+							"name" : "txId",
+							"data" : function(row) {
+								return '<a href="' + basePath + 'tx?txid='
+										+ row.txId
+										+ '" data-toggle="tooltip" title="'
+										+ viewTitle + '">' + row.txId + '</a>';
+							}
+						}, {
+							"name" : "date",
+							"data" : function(row) {
+								return format(row.date);
+							}
+						} ]
+			});
 };
 
 var refreshDataTable = function() {

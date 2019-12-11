@@ -22,6 +22,8 @@
 		th:value="${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':'
 		+ #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath() + '/'}" />
 	<input type="hidden" id="height" th:value="${height}" />
+		<input type="hidden" id="viewTitle" th:value="#{block.view.title}">
+	
 	<div class="wrapper">
 		<header class="header-top">
 			<nav class="navbar navbar-light bg-light">
@@ -37,15 +39,17 @@
 						style="margin-right: 10px; margin-top: -6px;" alt=""
 						class="d-inline-block"> <label th:text="${title}"></label> </a>
 					<form class="form-inline" style="width: 40%;">
-						<input type="search" placeholder="区块高度/交易Hash" aria-label="Search"
-							class="form-control mr-sm-2 col-sm-10" id="query">
+						<input type="search" th:placeholder="#{index.search.placeholder}"
+							aria-label="Search" class="form-control mr-sm-2 col-sm-9"
+							id="query">
 						<button type="button" class="btn btn-outline-success my-2 my-sm-0"
-							onclick="performSearch()">搜索</button>
+							onclick="performSearch()" th:text="#{index.search}"></button>
 					</form>
 
 					<a th:href="${hyperledgerExplorerUrl}"><img
 						th:src="@{img/hyperledger_explorer.svg}" width="150" height="32"
-						alt="打开超级账本浏览器" data-toggle="tooltip" title="打开超级账本浏览器"></a>
+						alt="#{index.hyperledger.explorer.title}" data-toggle="tooltip"
+						title="#{index.hyperledger.explorer.title}"></a>
 				</div>
 			</nav>
 		</header>
@@ -54,20 +58,22 @@
 				<nav class="breadcrumb-container" style="margin-top: 10px;margin-bottom:-30px;">
 					<ol class="breadcrumb bg-white">
 						<li class="breadcrumb-item"><a th:href="@{/}"><img
-								th:src="@{img/home.png}" class="image"> 首页 </a></li>
-						<li class="breadcrumb-item active" aria-current="page">区块链</li>
-						<li class="breadcrumb-item">区块信息</li>
+								th:src="@{img/home.png}" class="image" th:text="#{index.title}">
+						</a></li>
+						<li class="breadcrumb-item active" aria-current="page"
+							th:text="#{index.breadcrumb.blockchain}"></li>
+						<li class="breadcrumb-item" th:text="#{index.breadcrumb.block}"></li>
 					</ol>
 				</nav>
 				<div class="row">
 					<div class="col-sm-12">
 						<div>
 							<div class="card mt-3">
-								<div class="card-header bg-fabric text-center text-white">区块信息</div>
+								<div class="card-header bg-fabric text-center text-white" th:text="#{index.blocks.title}"></div>
 								<ul class="list-group list-group-flush">
 									<li class="list-group-item"><div class="row">
 											<div class="col-sm-3">
-												<strong>高度</strong>
+												<strong th:text="#{block.block.height}"></strong>
 											</div>
 											<div class="col-sm-9">
 												<code id="blockHeight" data-toggle="tooltip"
@@ -76,7 +82,7 @@
 										</div></li>
 									<li class="list-group-item"><div class="row">
 											<div class="col-sm-3">
-												<strong>区块Hash</strong>
+												<strong th:text="#{index.table.blockhash}"></strong>
 											</div>
 											<div class="col-sm-9">
 												<code id="previousHash" data-toggle="tooltip"
@@ -86,7 +92,7 @@
 									<li class="list-group-item">
 										<div class="row">
 											<div class="col-sm-3">
-												<strong>数据Hash</strong>
+												<strong th:text="#{index.table.datahash}"></strong>
 											</div>
 											<div class="col-sm-9">
 												<code id="dataHash" data-toggle="tooltip" title="Data Hash">
@@ -98,13 +104,13 @@
 							</div>
 							<div class="card mt-3">
 								<div class="card-header d-flex justify-content-between">
-									交易详情</div>
+									<label th:text="#{block.table.title}"></div>
 								<table class="table table-styled " style="width: 100%"
 									id="dataTable">
 									<thead>
 										<th>#</th>
-										<th>交易ID</th>
-										<th>交易时间</th>
+										<th th:text="#{block.table.id}"></th>
+										<th th:text="#{block.table.time}"></th>
 									</thead>
 								</table>
 							</div>
@@ -113,7 +119,7 @@
 						<div class="row mt-3 justify-content-center">
 							<a class="btn btn-primary"
 								th:href="${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':'
-		+ #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath() + '/'}">返回首页</a>
+		+ #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath() + '/'}" th:text="#{back}"></a>
 						</div>
 					</div>
 
@@ -123,7 +129,7 @@
 		<footer class="footer bg-light">
 			<div class="container">
 				<div class="row justify-content-center">
-					<span class="copyright" style="color: #606060">©版权所有 <label
+					<span class="copyright" style="color: #606060"><label th:text="#{copyright}"></label> <label
 						th:text="${copyright}"></label>
 					</span>
 				</div>

@@ -13,7 +13,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.boot.version>2.1.9.RELEASE</spring.boot.version>
+		<spring.boot.version>2.2.2.RELEASE</spring.boot.version>
 	</properties>
 	<dependencies>
 		<dependency>

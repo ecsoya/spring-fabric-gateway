@@ -1,12 +1,17 @@
 # Spring Fabric Gateway
 
-Provided Spring MVC services and spring boot starter based on [fabric-gateway-java](https://github.com/hyperledger/fabric-gateway-java)
+Provided Spring MVC services and spring boot starters based on [fabric-gateway-java](https://github.com/hyperledger/fabric-gateway-java)
 
 ### Dependencies
 
 1. Build your fabric network with Hyperledger Fabric 1.4.0 +.
 
 2. Optional, install the default common [Chaincode](https://github.com/ecsoya/spring-fabric-gateway/raw/master/spring-fabric-gateway/src/chaincode/common/chaincode.go).
+
+### Springboot Starters
+
+1. `fabric-gateway-spring-boot-starter`: A spring MVC boot starter.
+2. `fabric-explorer-spring-boot-starter`: A simple fabric explorer starter.
 
 ### How to use
 
@@ -22,13 +27,27 @@ Firstly, add the following dependency to your project's `pom.xml` file:
 </dependency>
 ```
 
+or
+
+
+```
+<dependency>
+	<groupId>io.github.ecsoya</groupId>
+	<artifactId>fabric-explorer-spring-boot-starter</artifactId>
+	<version>1.0.0</version>
+</dependency>
+```
+
 Secondly, configure fabric network in `application.yml`
 
 ```
 # Fabric Network Configure      
 spring:         
    fabric:
-      chaincode: your chaincodename
+      chaincode: 
+         identify: your chaincode id
+         name: Common chaincode
+         version: 1.0
       channel: your channel name
       organizations:
       - org1
@@ -40,6 +59,13 @@ spring:
       network:
          file: network/connection.yml //your fabric network config file.
          name: fabric network name
+# Fabric explorer
+      explorer: 
+         title: Fabric Explorer
+         logo: img/logo.png
+         copyright: Ecsoya (jin.liu@soyatec.com)
+         hyperledger-explorer-url: http://www.hyperleder.org
+
 ```
 
 Finally, enjoy to use the following spring components:
@@ -66,6 +92,12 @@ You can also look at my project [Fabric Network Builder](https://github.com/ecso
 The default common chaincode provided useful functions such as `create`, `get`, `update`, `query`. It used a CompositeKey with `id` and `type` to identify different objects, it also support pagination query.
 
 The chaincode source can be found from [here](https://github.com/ecsoya/spring-fabric-gateway/raw/master/spring-fabric-gateway/src/chaincode/common/chaincode.go).
+
+### Fabric Explorer Starter
+
+This will help you to build a simple fabric explorer with few codes.
+
+![Fabric Explorer](images/explorer-1.png)
 
 ### References
 

@@ -19,7 +19,6 @@
 	<modules>
 		<module>spring-fabric-gateway</module>
 		<module>fabric-gateway-spring-boot-starter</module>
-		<module>spring-fabric-gateway-explorer</module>
 		<module>fabric-explorer-spring-boot-starter</module>
 	</modules>
 

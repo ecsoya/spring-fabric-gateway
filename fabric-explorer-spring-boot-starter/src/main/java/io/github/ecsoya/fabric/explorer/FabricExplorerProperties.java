@@ -60,4 +60,5 @@ public class FabricExplorerProperties {
 	public void setHyperledgerExplorerUrl(String hyperledgerExplorerUrl) {
 		this.hyperledgerExplorerUrl = hyperledgerExplorerUrl;
 	}
+
 }

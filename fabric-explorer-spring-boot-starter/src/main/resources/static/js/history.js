@@ -1,7 +1,8 @@
-var basePath = $('#baseURL').val();
+const basePath = $('#baseURL').val();
 
-var key = $('#key').val();
-var type = $('#type').val();
+const key = $('#key').val();
+const type = $('#type').val();
+const viewDetails = $('#viewDetails').val();
 
 $(document).ready(function() {
 	queryBlockInfo();
@@ -47,10 +48,6 @@ function initDataTable() {
 				"searching" : false,
 				"processing" : true,
 				"serverSide" : true,
-				"language" : {
-					"emptyTable" : "空",
-					"processing" : "正在加载……"
-				},
 				"columns" : [
 						{
 							"name" : 'index',
@@ -60,20 +57,23 @@ function initDataTable() {
 							"name" : "txId",
 							"data" : function(row) {
 								return '<a href="' + basePath + 'tx?txid='
-										+ row.txId + '" data-toggle="tooltip" title="点击查看交易内容">' + row.txId + '</a>';
+										+ row.txId
+										+ '" data-toggle="tooltip" title="'
+										+ viewDetails + '">' + row.txId
+										+ '</a>';
 							}
 						}, {
 							"name" : "timestamp",
-							"data" : function(row){
+							"data" : function(row) {
 								return format(row.timestamp);
 							}
 						}, {
 							"name" : "delete",
 							"data" : function(row) {
 								if (row.isDelete) {
-									return '是';
+									return 'Yes';
 								}
-								return '否';
+								return 'No';
 							}
 						} ]
 			});

@@ -1,7 +1,8 @@
-var basePath = $('#baseURL').val();
-
-var txid = $('#txid').val();
-
+const basePath = $('#baseURL').val();
+const txid = $('#txid').val();
+const view = $('#view').val();
+const viewHistory = $('#viewHistory').val();
+const viewDetails = $('#viewDetails').val();
 $(document).ready(function() {
 	queryBlockInfo();
 	initDataTable('readTable');
@@ -14,7 +15,7 @@ $(document).ready(function() {
 			performSearch();
 		}
 	});
-	
+
 	$('[data-toggle="tooltip"]').tooltip()
 });
 
@@ -26,7 +27,7 @@ function queryBlockInfo() {
 		if (res.status > 0) {
 			$('#txDateDisplay').html(format(res.data.date));
 			$('#txCreatorDisplay').html(res.data.creator);
-			
+
 			$('[data-toggle="tooltip"]').tooltip()
 		}
 	}, function fail(data, status) {
@@ -46,7 +47,7 @@ function queryRWSet() {
 			var writeTable = $('#writeTable').DataTable();
 			writeTable.rows.add(res.data.writes);
 			writeTable.draw();
-			
+
 			$('[data-toggle="tooltip"]').tooltip()
 		}
 	}, function fail(data, status) {
@@ -64,10 +65,6 @@ function initDataTable(id) {
 						"searching" : false,
 						"processing" : true,
 						"serverSide" : false,
-						"language" : {
-							"emptyTable" : "空",
-							"processing": "正在加载……"
-						},
 						"columns" : [
 								{
 									"name" : 'index',
@@ -86,7 +83,8 @@ function initDataTable(id) {
 												+ row.key
 												+ "-"
 												+ row.index
-												+ '\').submit();" data-toggle="tooltip" title="点击查看历史记录">' + row.key
+												+ '\').submit();" data-toggle="tooltip" title="'
+												+ viewHistory + '">' + row.key
 										'</a>';
 										html += '<input type="hidden" name="type" value="'
 												+ row.type + '"/>';
@@ -103,7 +101,12 @@ function initDataTable(id) {
 										html += '<a data-toggle="collapse" href="#'
 												+ id
 												+ '" role="button" aria-expanded="false" aria-controls="'
-												+ id + '" data-toggle="tooltip" title="点击查看详细内容">查看</a>';
+												+ id
+												+ '" data-toggle="tooltip" title="'
+												+ viewDetails
+												+ '">'
+												+ view
+												+ '</a>';
 										html += '	<div class="collapse multi-collapse" id="'
 												+ id + '">';
 										html += '  <div class="card card-body" style="overflow-y: auto; height:350px;" >';
@@ -118,7 +121,7 @@ function initDataTable(id) {
 									"name" : "remarks",
 									"data" : function(row) {
 										if (row.remarks == 'true') {
-											return '是';
+											return 'yes';
 										}
 										return '';
 									}
