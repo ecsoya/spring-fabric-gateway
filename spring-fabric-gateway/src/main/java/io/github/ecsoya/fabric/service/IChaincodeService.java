@@ -8,8 +8,9 @@ import io.github.ecsoya.fabric.FabricQuery;
 import io.github.ecsoya.fabric.FabricQueryResponse;
 import io.github.ecsoya.fabric.FabricResponse;
 import io.github.ecsoya.fabric.bean.IFabricObject;
+import io.github.ecsoya.fabric.chaincode.ChaincodeConstants;
 
-public interface IChaincodeService<T extends IFabricObject> extends IChaincode, IFabricBlockService {
+public interface IChaincodeService<T extends IFabricObject> extends ChaincodeConstants, IFabricBlockService {
 
 	/**
 	 * Create object and send to ledger.

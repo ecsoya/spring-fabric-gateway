@@ -4,6 +4,12 @@ import java.util.Date;
 
 import lombok.Data;
 
+/**
+ * Fabric object querying history.
+ * 
+ * @author ecsoya
+ *
+ */
 @Data
 public class FabricQueryHistory {
 

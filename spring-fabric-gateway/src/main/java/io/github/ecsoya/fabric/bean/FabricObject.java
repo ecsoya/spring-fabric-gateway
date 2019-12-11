@@ -7,6 +7,14 @@ import java.util.Map;
 
 import lombok.Data;
 
+/**
+ * Common fabric object bean.
+ * 
+ * Using the CompositeKey with the id and type to identify a specific object.
+ * 
+ * @author ecsoya
+ *
+ */
 @Data
 public class FabricObject implements IFabricObject {
 

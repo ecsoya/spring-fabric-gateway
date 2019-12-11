@@ -11,6 +11,13 @@ import io.github.ecsoya.fabric.bean.FabricLedger;
 import io.github.ecsoya.fabric.bean.FabricTransaction;
 import io.github.ecsoya.fabric.bean.FabricTransactionRWSet;
 
+/**
+ * Default service to provided fabric blockchain info, such as blocks,
+ * transactions and ledger.
+ * 
+ * @author ecsoya
+ *
+ */
 public interface IFabricInfoService {
 
 	FabricQueryResponse<FabricLedger> queryFabricLedger();

@@ -1,4 +1,4 @@
-package io.github.ecsoya.fabric.bean.gateway;
+package io.github.ecsoya.fabric.gateway;
 
 import static org.hyperledger.fabric.sdk.Channel.DiscoveryOptions.createDiscoveryOptions;
 

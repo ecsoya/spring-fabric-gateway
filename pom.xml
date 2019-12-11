@@ -7,9 +7,21 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>spring-fabric-gateway-parent</name>
-	
+
 	<modules>
 		<module>spring-fabric-gateway</module>
 		<module>fabric-gateway-spring-boot-starter</module>
 	</modules>
+
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>oss</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</snapshotRepository>
+		<repository>
+			<id>oss</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
 </project>

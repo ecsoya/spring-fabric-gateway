@@ -4,6 +4,12 @@ import java.util.Date;
 
 import lombok.Data;
 
+/**
+ * Fabric transaction info.
+ * 
+ * @author ecsoya
+ *
+ */
 @Data
 public class FabricTransaction {
 

@@ -1,6 +1,6 @@
 package io.github.ecsoya.fabric;
 
-public class FabricException extends Exception {
+public class FabricException extends RuntimeException {
 
 	/**
 	 * 

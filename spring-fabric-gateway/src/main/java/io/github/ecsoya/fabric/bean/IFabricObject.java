@@ -3,6 +3,13 @@ package io.github.ecsoya.fabric.bean;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 
+ * Fabric object interface.
+ * 
+ * @author ecsoya
+ *
+ */
 public interface IFabricObject {
 
 	default String getType() {

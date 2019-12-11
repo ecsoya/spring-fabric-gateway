@@ -11,6 +11,12 @@ import com.google.gson.JsonParser;
 import io.github.ecsoya.fabric.json.JsonUtils;
 import lombok.Data;
 
+/**
+ * Fabric transaction reading set.
+ * 
+ * @author ecsoya
+ *
+ */
 @Data
 public class FabricTransactionRW {
 

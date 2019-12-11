@@ -7,6 +7,12 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import io.github.ecsoya.fabric.utils.FabricUtil;
 import lombok.Data;
 
+/**
+ * Fabric block which contains blockNumber, dataHash...
+ * 
+ * @author ecsoya
+ *
+ */
 @Data
 public class FabricBlock {
 

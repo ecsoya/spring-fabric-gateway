@@ -1,6 +1,15 @@
-package io.github.ecsoya.fabric.service;
+package io.github.ecsoya.fabric.chaincode;
 
-public interface IChaincode {
+/**
+ * 
+ * Default chaincode function names.
+ * 
+ * Default chaincode path: src/chaincode/common/chaincode.go
+ * 
+ * @author ecsoya
+ *
+ */
+public interface ChaincodeConstants {
 
 	String FUNCTION_CREATE = "create";
 	String FUNCTION_GET = "get";

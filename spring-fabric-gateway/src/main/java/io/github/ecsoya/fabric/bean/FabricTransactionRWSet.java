@@ -8,6 +8,12 @@ import org.hyperledger.fabric.protos.ledger.rwset.kvrwset.KvRwset.KVWrite;
 
 import lombok.Data;
 
+/**
+ * Fabric transaction writing set.
+ * 
+ * @author ecsoya
+ *
+ */
 @Data
 public class FabricTransactionRWSet {
 

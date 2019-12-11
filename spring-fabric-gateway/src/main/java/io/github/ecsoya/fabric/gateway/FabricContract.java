@@ -1,4 +1,4 @@
-package io.github.ecsoya.fabric.bean.gateway;
+package io.github.ecsoya.fabric.gateway;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
@@ -13,6 +13,14 @@ import org.hyperledger.fabric.gateway.impl.ContractImpl;
 import org.hyperledger.fabric.gateway.impl.TransactionImpl;
 import org.hyperledger.fabric.gateway.spi.Checkpointer;
 
+/**
+ * 
+ * Overrite the default {@link Contract} to provided transactionId after
+ * execution.
+ * 
+ * @author ecsoya
+ *
+ */
 public class FabricContract implements Contract {
 
 	private ContractImpl delegate;

@@ -9,17 +9,17 @@ import lombok.EqualsAndHashCode;
 public class FabricPaginationQuery<T> extends FabricQuery {
 
 	/**
-	 * 查询到的断点
+	 * The bookmark of page querying.
 	 */
 	private String bookmark = "";
 
 	/**
-	 * 每页大小
+	 * Size of each page.
 	 */
 	private int pageSize = 10;
 
 	/**
-	 * 当前页
+	 * Current page of querying
 	 */
 	private int currentPage;
 

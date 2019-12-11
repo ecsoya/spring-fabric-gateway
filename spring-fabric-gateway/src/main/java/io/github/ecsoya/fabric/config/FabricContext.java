@@ -1,5 +1,6 @@
 package io.github.ecsoya.fabric.config;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -36,6 +37,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
+import io.github.ecsoya.fabric.FabricException;
 import io.github.ecsoya.fabric.FabricQueryRequest;
 import io.github.ecsoya.fabric.FabricQueryResponse;
 import io.github.ecsoya.fabric.FabricRequest;
@@ -45,7 +47,7 @@ import io.github.ecsoya.fabric.bean.FabricHistory;
 import io.github.ecsoya.fabric.bean.FabricLedger;
 import io.github.ecsoya.fabric.bean.FabricTransaction;
 import io.github.ecsoya.fabric.bean.FabricTransactionRWSet;
-import io.github.ecsoya.fabric.bean.gateway.FabricContract;
+import io.github.ecsoya.fabric.gateway.FabricContract;
 
 public class FabricContext {
 	private Logger logger = LoggerFactory.getLogger(FabricContext.class);
@@ -105,19 +107,19 @@ public class FabricContext {
 	}
 
 	@PostConstruct
-	private void initialize() throws Exception {
+	private void initialize() throws FabricException {
 
 		logger.debug("Initialize Fabric Context");
 
 		String channel = properties.getChannel();
 		if (channel == null || channel.equals("")) {
-			throw new RuntimeException(
+			throw new FabricException(
 					"Initialize fabric gateway failed with invalid 'channel' name. Please make sure the channel is configured corrected by 'spring.fabric.channel'.");
 		}
 
 		String chaincode = properties.getChaincode();
 		if (chaincode == null || chaincode.equals("")) {
-			throw new RuntimeException(
+			throw new FabricException(
 					"Initialize fabric gateway failed with invalid 'chaincode' name. Please make sure the chaincode is configured corrected by 'spring.fabric.chaincode'.");
 		}
 
@@ -125,13 +127,18 @@ public class FabricContext {
 
 		InputStream configFile = properties.getNetworkContents();
 		if (configFile == null) {
-			throw new RuntimeException(
+			throw new FabricException(
 					"Network config file can not be loaded. Please make sure 'spring.fabric.network.path' is configured.");
 		}
 
-		NetworkConfig config = NetworkConfig.fromYamlStream(configFile);
+		NetworkConfig config = null;
+		try {
+			config = NetworkConfig.fromYamlStream(configFile);
+		} catch (Exception e) {
+			throw new FabricException("Network config can not be loaded.", e);
+		}
 		if (config == null) {
-			throw new RuntimeException(
+			throw new FabricException(
 					"Network config can not be loaded. Please make sure 'spring.fabric.network.path' is correct.");
 		}
 
@@ -153,7 +160,11 @@ public class FabricContext {
 				if (enrollment != null) {
 					Identity admin = new WalletIdentity(peerAdmin.getMspId(), enrollment.getCert(),
 							enrollment.getKey());
-					wallet.put(identifyName, admin);
+					try {
+						wallet.put(identifyName, admin);
+					} catch (IOException e) {
+						throw new FabricException("Initialize Wallet failed", e);
+					}
 					logger.debug("Initialize Wallet " + identifyName);
 				}
 			}
@@ -161,7 +172,11 @@ public class FabricContext {
 
 		logger.debug("Initialize Gateway... ");
 		configFile = properties.getNetworkContents();
-		builder = Gateway.createBuilder().identity(wallet, identifyName).networkConfig(configFile);
+		try {
+			builder = Gateway.createBuilder().identity(wallet, identifyName).networkConfig(configFile);
+		} catch (IOException e) {
+			throw new FabricException("Initialize Gateway failed", e);
+		}
 		Gateway gateway = builder.connect();
 
 		logger.debug("Initialize Network... ");

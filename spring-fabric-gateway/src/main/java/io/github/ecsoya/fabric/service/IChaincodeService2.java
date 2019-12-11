@@ -4,8 +4,9 @@ import java.util.List;
 
 import io.github.ecsoya.fabric.FabricQuery;
 import io.github.ecsoya.fabric.bean.IFabricObject;
+import io.github.ecsoya.fabric.chaincode.ChaincodeConstants;
 
-public interface IChaincodeService2<T extends IFabricObject> extends IChaincode, IFabricBlockService2 {
+public interface IChaincodeService2<T extends IFabricObject> extends ChaincodeConstants, IFabricBlockService2 {
 
 	/**
 	 * Create object and send to ledger.

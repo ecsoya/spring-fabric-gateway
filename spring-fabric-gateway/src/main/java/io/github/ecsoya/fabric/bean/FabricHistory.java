@@ -4,6 +4,13 @@ import org.hyperledger.fabric.sdk.BlockInfo;
 
 import lombok.Data;
 
+/**
+ * 
+ * Editing history for a key.
+ * 
+ * @author ecsoya
+ *
+ */
 @Data
 public class FabricHistory {
 

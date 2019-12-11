@@ -7,7 +7,7 @@ import lombok.Data;
 
 /**
  * 
- * Query with Page.
+ * Query object with Page.
  * 
  * @author ecsoya
  *
@@ -16,22 +16,22 @@ import lombok.Data;
 public class FabricPagination<T> {
 
 	/**
-	 * 当前查询的列表数据
+	 * Results List
 	 */
 	private List<T> data = new ArrayList<>();
 
 	/**
-	 * 查询到的数量
+	 * Total counts of records.
 	 */
 	private int recordsCount;
 
 	/**
-	 * 查询到的断点
+	 * The bookmark of current query.
 	 */
 	private String bookmark = "";
 
 	/**
-	 * 每页大小
+	 * The count of each page.
 	 */
 	private int pageSize = 10;
 
@@ -49,7 +49,7 @@ public class FabricPagination<T> {
 	private int recordsFiltered;
 
 	/**
-	 * 当前页
+	 * Current page index.
 	 */
 	private int currentPage;
 

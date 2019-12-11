@@ -47,6 +47,11 @@ public class FabricQuery {
 		return this;
 	}
 
+	/**
+	 * Generate query string for CouchDB.
+	 * 
+	 * @return
+	 */
 	public String toJson() {
 		JsonObject query = new JsonObject();
 		JsonObject selector = new JsonObject();
