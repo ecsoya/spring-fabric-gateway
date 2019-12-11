@@ -6,7 +6,15 @@
 	<artifactId>spring-fabric-gateway-parent</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
+
 	<name>spring-fabric-gateway-parent</name>
+	<url>https://github.com/ecsoya/spring-fabric-gateway</url>
+	<description>Provided Spring MVC services for fabric-gateway-java (https://github.com/hyperledger/fabric-gateway-java)</description>
+
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
 
 	<modules>
 		<module>spring-fabric-gateway</module>
@@ -14,14 +22,117 @@
 	</modules>
 
 
-	<distributionManagement>
-		<snapshotRepository>
-			<id>oss</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-		</snapshotRepository>
-		<repository>
-			<id>oss</id>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		</repository>
-	</distributionManagement>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>https://github.com/hyperledger/fabric-gateway-java</url>
+		<developerConnection>ecsoya (jin.liu@soyatec.com)</developerConnection>
+	</scm>
+	<developers>
+		<developer>
+			<name>ecsoya</name>
+			<email>jin.liu@soyatec.com</email>
+			<roles>
+				<role>developer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<profiles>
+		<profile>
+			<id>maven</id>
+			<build>
+				<plugins>
+					<!-- Source -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>3.2.0</version>
+						<configuration>
+							<attach>true</attach>
+						</configuration>
+						<executions>
+							<execution>
+								<phase>compile</phase>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+					<!-- Javadoc -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>3.1.1</version>
+						<configuration>
+							<show>private</show>
+							<nohelp>true</nohelp>
+							<charset>UTF-8</charset>
+							<encoding>UTF-8</encoding>
+							<docencoding>UTF-8</docencoding>
+						</configuration>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+					<!-- GPG -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+
+			<distributionManagement>
+				<snapshotRepository>
+					<id>oss</id>
+					<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+				</snapshotRepository>
+				<repository>
+					<id>oss</id>
+					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+				</repository>
+
+			</distributionManagement>
+
+		</profile>
+
+		<profile>
+			<id>aliyun</id>
+			<distributionManagement>
+				<repository>
+					<id>rdc-releases</id>
+					<url>https://repo.rdc.aliyun.com/repository/42210-release-mI5S4B/</url>
+				</repository>
+				<snapshotRepository>
+					<id>rdc-snapshots</id>
+					<url>https://repo.rdc.aliyun.com/repository/42210-snapshot-BITvCn/</url>
+				</snapshotRepository>
+			</distributionManagement>
+		</profile>
+
+	</profiles>
 </project>
