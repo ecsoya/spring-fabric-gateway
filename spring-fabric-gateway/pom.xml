@@ -4,9 +4,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>io.ecsoya.fabric</groupId>
 	<artifactId>spring-fabric-gateway</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -53,4 +51,16 @@
 
 		</plugins>
 	</build>
+	<scm>
+		<url>https://github.com/ecsoya/spring-fabric-gateway.git</url>
+		<developerConnection>jin.liu@soyatec.com</developerConnection>
+	</scm>
+	<url>https://github.com/ecsoya/spring-fabric-gateway</url>
+	<name>spring-fabric-gateway</name>
+	<parent>
+		<groupId>io.github.ecsoya</groupId>
+		<artifactId>spring-fabric-gateway-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
 </project>
