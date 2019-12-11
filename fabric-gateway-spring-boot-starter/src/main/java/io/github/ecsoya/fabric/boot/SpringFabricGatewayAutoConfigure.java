@@ -1,5 +1,7 @@
 package io.github.ecsoya.fabric.boot;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -13,13 +15,17 @@ import io.github.ecsoya.fabric.service.impl.FabricServiceImpl;
 
 @Configuration
 @EnableConfigurationProperties(SpringFabricProperties.class)
+
 public class SpringFabricGatewayAutoConfigure {
+
+	private Logger logger = LoggerFactory.getLogger(SpringFabricGatewayAutoConfigure.class);
 
 	@Autowired
 	private SpringFabricProperties properties;
 
 	@Bean
 	public FabricContext fabricContext() {
+		logger.info("Init SpringFabricGateway: " + properties);
 		return new FabricContext(properties);
 	}
 

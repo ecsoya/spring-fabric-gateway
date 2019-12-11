@@ -14,4 +14,10 @@ public class FabricGatewayProperties {
 	public void setWallet(FabricWalletProperties wallet) {
 		this.wallet = wallet;
 	}
+
+	@Override
+	public String toString() {
+		return "FabricGatewayProperties [wallet=" + wallet + "]";
+	}
+
 }

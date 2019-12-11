@@ -31,4 +31,10 @@ public class FabricWalletProperties {
 	public void setIdentify(String identify) {
 		this.identify = identify;
 	}
+
+	@Override
+	public String toString() {
+		return "FabricWalletProperties [memory=" + memory + ", file=" + file + ", identify=" + identify + "]";
+	}
+
 }

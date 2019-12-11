@@ -15,12 +15,12 @@ import io.github.ecsoya.fabric.explorer.controller.PageController;
 @EnableConfigurationProperties(FabricExplorerProperties.class)
 public class FabricExplorerAutoConfigure {
 
-	@Bean
+	@Bean("fabricExplorerIndexController")
 	public IndexController indexController() {
 		return new IndexController();
 	}
 
-	@Bean
+	@Bean("fabricExplorerPageController")
 	public PageController pageController() {
 		return new PageController();
 	}

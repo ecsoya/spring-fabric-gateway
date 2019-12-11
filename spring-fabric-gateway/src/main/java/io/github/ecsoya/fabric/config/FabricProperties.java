@@ -4,10 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 
 public class FabricProperties {
-
-	private FabricChaincodeProperties chaincode;
 
 	private String channel;
 
@@ -20,6 +19,8 @@ public class FabricProperties {
 	private FabricGatewayProperties gateway;
 
 	protected FabricNetworkProperties network;
+
+	private FabricChaincodeProperties chaincode;
 
 	public String getChannel() {
 		return channel;
@@ -104,4 +105,12 @@ public class FabricProperties {
 	public void setPeers(int peers) {
 		this.peers = peers;
 	}
+
+	@Override
+	public String toString() {
+		return "FabricProperties [chaincode=" + chaincode + ", channel=" + channel + ", organizations="
+				+ Arrays.toString(organizations) + ", name=" + name + ", peers=" + peers + ", gateway=" + gateway
+				+ ", network=" + network + "]";
+	}
+
 }

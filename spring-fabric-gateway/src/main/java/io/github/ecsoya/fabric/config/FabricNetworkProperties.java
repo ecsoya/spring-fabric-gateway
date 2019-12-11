@@ -21,4 +21,10 @@ public class FabricNetworkProperties {
 	public void setFile(String file) {
 		this.file = file;
 	}
+
+	@Override
+	public String toString() {
+		return "FabricNetworkProperties [name=" + name + ", file=" + file + "]";
+	}
+
 }

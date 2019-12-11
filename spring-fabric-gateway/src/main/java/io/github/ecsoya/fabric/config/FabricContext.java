@@ -111,6 +111,8 @@ public class FabricContext {
 
 		logger.debug("Initialize Fabric Context");
 
+		logger.debug("Initialize Fabric Context with properties: " + properties);
+
 		String channel = properties.getChannel();
 		if (channel == null || channel.equals("")) {
 			throw new FabricException(
