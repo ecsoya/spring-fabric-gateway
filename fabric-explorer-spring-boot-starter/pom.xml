@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>io.github.ecsoya</groupId>
 		<artifactId>spring-fabric-gateway-parent</artifactId>
-		<version>1.0.3-SNAPSHOT</version>
+		<version>1.0.2</version>
 	</parent>
 	<artifactId>fabric-explorer-spring-boot-starter</artifactId>
 	<name>fabric-explorer-spring-boot-starter</name>
@@ -25,7 +25,7 @@
 		<dependency>
 			<groupId>io.github.ecsoya</groupId>
 			<artifactId>fabric-gateway-spring-boot-starter</artifactId>
-			<version>1.0.3-SNAPSHOT</version>
+			<version>1.0.2</version>
 		</dependency>
 
 		<!-- web mvc -->
