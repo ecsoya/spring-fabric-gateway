@@ -22,7 +22,7 @@ $(document).ready(function() {
 
 function queryBlockchainInfo() {
 	$.ajax({
-		url : basePath + "queryfabricledger"
+		url : basePath + "query/ledger"
 	}).then(
 			function success(res) {
 				if (res.status > 0) {
@@ -116,7 +116,7 @@ function reloadDatas(callback) {
 	query.pageSize = 5;
 	query.bookmark = bookmark;
 	$.ajax({
-		url : basePath + "queryblocks",
+		url : basePath + "query/blockpage",
 		type : 'POST',
 		cache : false,
 		data : JSON.stringify(query),

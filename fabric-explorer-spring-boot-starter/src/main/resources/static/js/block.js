@@ -18,7 +18,7 @@ $(document).ready(function() {
 function queryBlockInfo() {
 	$('#blockHeight').html(blockNumber);
 	$.ajax({
-		url : basePath + "queryblockinfo?blockNumber=" + blockNumber,
+		url : basePath + "query/block/" + blockNumber,
 	}).then(function success(res) {
 		if (res.status > 0) {
 			$('#previousHash').html(res.data.previousHash);
@@ -38,7 +38,7 @@ function initDataTable() {
 					$.ajax(
 							{
 								url : basePath
-										+ "querytransactions?blockNumber="
+										+ "query/transactions/"
 										+ height,
 							}).then(function success(res) {
 						callback(res);

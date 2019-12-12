@@ -22,7 +22,7 @@ $(document).ready(function() {
 function queryBlockInfo() {
 	$('#txIdDisplay').html(txid);
 	$.ajax({
-		url : basePath + "querytransactioninfo?txid=" + txid,
+		url : basePath + "query/tx/" + txid,
 	}).then(function success(res) {
 		if (res.status > 0) {
 			$('#txDateDisplay').html(format(res.data.date));
@@ -37,7 +37,7 @@ function queryBlockInfo() {
 
 function queryRWSet() {
 	$.ajax({
-		url : basePath + "querytransactionrwset?txid=" + txid,
+		url : basePath + "query/txrw/" + txid,
 	}).then(function success(res) {
 		if (res.status > 0) {
 			var readTable = $('#readTable').DataTable();

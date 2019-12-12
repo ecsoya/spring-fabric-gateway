@@ -3,6 +3,7 @@ package io.github.ecsoya.fabric.explorer.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,37 +24,37 @@ public class IndexController {
 	@Autowired
 	private IFabricInfoService fabricService;
 
-	@RequestMapping("/queryfabricledger")
+	@RequestMapping("/query/ledger")
 	public FabricQueryResponse<FabricLedger> queryFabricLedger() {
 		return fabricService.queryFabricLedger();
 	}
 
-	@RequestMapping("/queryblocks")
+	@RequestMapping("/query/blockpage")
 	public FabricPagination<FabricBlock> queryBlocks(@RequestBody FabricPaginationQuery<FabricBlock> query) {
 		return fabricService.queryBlocks(query);
 	}
 
-	@RequestMapping("/queryblockinfo")
-	public FabricQueryResponse<FabricBlock> queryBlockInfo(long blockNumber) {
+	@RequestMapping("/query/block/{number}")
+	public FabricQueryResponse<FabricBlock> queryBlockInfo(@PathVariable("number") long blockNumber) {
 		return fabricService.queryBlockByNumber(blockNumber);
 	}
 
-	@RequestMapping("/querytransactioninfo")
-	public FabricQueryResponse<FabricTransaction> queryTransactionInfo(String txid) {
+	@RequestMapping("/query/tx/{id}")
+	public FabricQueryResponse<FabricTransaction> queryTransactionInfo(@PathVariable("id") String txid) {
 		return fabricService.queryTransactionInfo(txid);
 	}
 
-	@RequestMapping("/querytransactions")
-	public FabricQueryResponse<List<FabricTransaction>> queryTransactions(long blockNumber) {
+	@RequestMapping("/query/transactions/{number}")
+	public FabricQueryResponse<List<FabricTransaction>> queryTransactions(@PathVariable("number") long blockNumber) {
 		return fabricService.queryTransactions(blockNumber);
 	}
 
-	@RequestMapping("/querytransactionrwset")
-	public FabricQueryResponse<FabricTransactionRWSet> queryTransactionRWSet(String txid) {
+	@RequestMapping("/query/txrw/{id}")
+	public FabricQueryResponse<FabricTransactionRWSet> queryTransactionRWSet(@PathVariable("id") String txid) {
 		return fabricService.queryTransactionRWSet(txid);
 	}
 
-	@RequestMapping("/queryhistories")
+	@RequestMapping("/query/history")
 	public FabricQueryResponse<List<FabricHistory>> queryHistories(String type, String key) {
 		return fabricService.queryHistory(type, key);
 	}

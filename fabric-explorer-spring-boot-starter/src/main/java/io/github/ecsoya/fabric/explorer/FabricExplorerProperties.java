@@ -16,6 +16,8 @@ public class FabricExplorerProperties {
 
 	private String hyperledgerExplorerUrl = "";
 
+	private String path = "/";
+
 	private Map<String, Object> map;
 
 	public String getTitle() {
@@ -59,6 +61,19 @@ public class FabricExplorerProperties {
 
 	public void setHyperledgerExplorerUrl(String hyperledgerExplorerUrl) {
 		this.hyperledgerExplorerUrl = hyperledgerExplorerUrl;
+	}
+
+	public String getPath() {
+		if (path == null || path.equals("")) {
+			return "/";
+		} else if (!path.startsWith("/")) {
+			path = "/" + path;
+		}
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 }

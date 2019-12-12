@@ -28,7 +28,7 @@ function initDataTable() {
 				"ajax" : function(data, callback) {
 					$.ajax(
 							{
-								url : basePath + "queryhistories?type=" + type
+								url : basePath + "query/history?type=" + type
 										+ "&key=" + key,
 							}).then(function success(res) {
 						if (res.data) {
