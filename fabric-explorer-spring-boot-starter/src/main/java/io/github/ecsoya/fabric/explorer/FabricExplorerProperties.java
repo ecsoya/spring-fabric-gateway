@@ -76,4 +76,9 @@ public class FabricExplorerProperties {
 		this.path = path;
 	}
 
+	@Override
+	public String toString() {
+		return "FabricExplorerProperties [" + toMap() + "]";
+	}
+
 }

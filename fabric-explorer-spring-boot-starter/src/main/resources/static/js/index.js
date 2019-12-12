@@ -22,7 +22,8 @@ $(document).ready(function() {
 
 function queryBlockchainInfo() {
 	$.ajax({
-		url : basePath + "query/ledger"
+		url : basePath + "query/ledger",
+		type: "POST"
 	}).then(
 			function success(res) {
 				if (res.status > 0) {
