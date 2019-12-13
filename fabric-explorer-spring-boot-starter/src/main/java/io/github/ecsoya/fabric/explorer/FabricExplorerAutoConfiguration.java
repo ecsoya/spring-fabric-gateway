@@ -6,15 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
 import io.github.ecsoya.fabric.boot.SpringFabricGatewayAutoConfigure;
-import io.github.ecsoya.fabric.explorer.controller.IndexController;
-import io.github.ecsoya.fabric.explorer.controller.PageController;
+import io.github.ecsoya.fabric.explorer.controller.FabricExplorerController;
 
 @Configuration
 @ImportAutoConfiguration(SpringFabricGatewayAutoConfigure.class)
@@ -32,15 +30,15 @@ public class FabricExplorerAutoConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnMissingBean(value = { IndexController.class })
-	public IndexController indexController() {
-		return new IndexController();
+	public FabricExplorerHandlerMapping fabricExplorerHandlerMapping() {
+		FabricExplorerHandlerMapping mapping = new FabricExplorerHandlerMapping();
+		mapping.setOrder(Integer.MAX_VALUE - 3);
+		return mapping;
 	}
 
 	@Bean
-	@ConditionalOnMissingBean(value = { PageController.class })
-	public PageController pageController() {
-		return new PageController();
+	public FabricExplorerController fabricExplorerController() {
+		return new FabricExplorerController();
 	}
 
 	@Bean(name = "messageSource")

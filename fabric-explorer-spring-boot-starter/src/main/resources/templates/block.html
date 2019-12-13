@@ -12,30 +12,25 @@
 <title>区块信息</title>
 
 <!-- Bootstrap core CSS -->
-<link rel="shortcut icon" th:href="@{favicon.ico}">
-<link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
-<link th:href="@{css/datatables.min.css}" rel="stylesheet">
-<link th:href="@{css/main.css}" rel="stylesheet">
+<link rel="shortcut icon" th:href="${baseURL + '/favicon.ico'}">
+<link th:href="${baseURL + '/css/bootstrap.min.css'}" rel="stylesheet">
+<link th:href="${baseURL + '/css/datatables.min.css'}" rel="stylesheet">
+<link th:href="${baseURL + '/css/main.css'}" rel="stylesheet">
 </head>
 <body>
-	<input type="hidden" id="baseURL"
-		th:value="${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':'
-		+ #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath() + '/'}" />
+	<input type="hidden" id="baseURL" th:value="${baseURL}" />
+	<input type="hidden" id="path" th:value="${path}" />
 	<input type="hidden" id="height" th:value="${height}" />
-		<input type="hidden" id="viewTitle" th:value="#{block.view.title}">
-	
+	<input type="hidden" id="viewTitle" th:value="#{block.view.title}">
+
 	<div class="wrapper">
 		<header class="header-top">
 			<nav class="navbar navbar-light bg-light">
 				<div class="container">
-					<a
-						th:href="${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':'
-		+ #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath() + '/'}"
+					<a th:href="${baseURL + '/' + path}"
 						class="navbar-brand router-link-exact-active router-link-active"
 						style="font-size: 32px; color: #606060"><img
-						th:src="${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':'
-		+ #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath() + '/' + logo}"
-						width="40" height="40"
+						th:src="${baseURL + '/' + logo}" width="40" height="40"
 						style="margin-right: 10px; margin-top: -6px;" alt=""
 						class="d-inline-block"> <label th:text="${title}"></label> </a>
 					<form class="form-inline" style="width: 40%;">
@@ -47,19 +42,20 @@
 					</form>
 
 					<a th:href="${hyperledgerExplorerUrl}"><img
-						th:src="@{img/hyperledger_explorer.svg}" width="150" height="32"
-						alt="#{index.hyperledger.explorer.title}" data-toggle="tooltip"
-						title="#{index.hyperledger.explorer.title}"></a>
+						th:src="${baseURL + '/img/hyperledger_explorer.svg'}" width="150"
+						height="32" alt="#{index.hyperledger.explorer.title}"
+						data-toggle="tooltip" title="#{index.hyperledger.explorer.title}"></a>
 				</div>
 			</nav>
 		</header>
 		<div class="main-content">
 			<div class="container">
-				<nav class="breadcrumb-container" style="margin-top: 10px;margin-bottom:-30px;">
+				<nav class="breadcrumb-container"
+					style="margin-top: 10px; margin-bottom: -30px;">
 					<ol class="breadcrumb bg-white">
-						<li class="breadcrumb-item"><a th:href="@{/}"><img
-								th:src="@{img/home.png}" class="image" th:text="#{index.title}">
-						</a></li>
+						<li class="breadcrumb-item"><a th:href="${baseURL + '/'}"><img
+								th:src="${baseURL + '/img/home.png'}" class="image"
+								th:text="#{index.title}"> </a></li>
 						<li class="breadcrumb-item active" aria-current="page"
 							th:text="#{index.breadcrumb.blockchain}"></li>
 						<li class="breadcrumb-item" th:text="#{index.breadcrumb.block}"></li>
@@ -69,7 +65,8 @@
 					<div class="col-sm-12">
 						<div>
 							<div class="card mt-3">
-								<div class="card-header bg-fabric text-center text-white" th:text="#{index.blocks.title}"></div>
+								<div class="card-header bg-fabric text-center text-white"
+									th:text="#{index.blocks.title}"></div>
 								<ul class="list-group list-group-flush">
 									<li class="list-group-item"><div class="row">
 											<div class="col-sm-3">
@@ -104,7 +101,8 @@
 							</div>
 							<div class="card mt-3">
 								<div class="card-header d-flex justify-content-between">
-									<label th:text="#{block.table.title}"></div>
+									<label th:text="#{block.table.title}">
+								</div>
 								<table class="table table-styled " style="width: 100%"
 									id="dataTable">
 									<thead>
@@ -117,9 +115,8 @@
 						</div>
 
 						<div class="row mt-3 justify-content-center">
-							<a class="btn btn-primary"
-								th:href="${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':'
-		+ #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath() + '/'}" th:text="#{back}"></a>
+							<a class="btn btn-primary" th:href="${baseURL + '/' + path}"
+								th:text="#{back}"></a>
 						</div>
 					</div>
 
@@ -129,20 +126,20 @@
 		<footer class="footer bg-light">
 			<div class="container">
 				<div class="row justify-content-center">
-					<span class="copyright" style="color: #606060"><label th:text="#{copyright}"></label> <label
-						th:text="${copyright}"></label>
+					<span class="copyright" style="color: #606060"><label
+						th:text="#{copyright}"></label> <label th:text="${copyright}"></label>
 					</span>
 				</div>
 			</div>
 		</footer>
 	</div>
 	<!-- Bootstrap core JavaScript -->
-	<script th:src="@{js/jquery.min.js}"></script>
-	<script th:src="@{js/popper.min.js}"></script>
-	<script th:src="@{js/bootstrap.min.js}"></script>
-	<script th:src="@{js/datatables.min.js}"></script>
-	<script th:src="@{js/common.js}"></script>
-	<script th:src="@{js/block.js}"></script>
+	<script th:src="${baseURL + '/js/jquery.min.js'}"></script>
+	<script th:src="${baseURL + '/js/popper.min.js'}"></script>
+	<script th:src="${baseURL + '/js/bootstrap.min.js'}"></script>
+	<script th:src="${baseURL + '/js/datatables.min.js'}"></script>
+	<script th:src="${baseURL + '/js/common.js'}"></script>
+	<script th:src="${baseURL + '/js/block.js'}"></script>
 </body>
 
 </html>

@@ -1,4 +1,5 @@
-const basePath = $('#baseURL').val();
+const basePath = $('#baseURL').val() + '/' + $('#path').val() + '/';
+
 const txid = $('#txid').val();
 const view = $('#view').val();
 const viewHistory = $('#viewHistory').val();

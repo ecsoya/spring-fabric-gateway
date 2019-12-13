@@ -158,7 +158,7 @@ public class FabricInfoServiceImpl implements IFabricInfoService {
 	}
 
 	@Override
-	public FabricQueryResponse<FabricTransaction> queryTransactionInfo(String txid) {
+	public FabricQueryResponse<FabricTransaction> queryTransaction(String txid) {
 		try {
 			return fabricContext.queryTransactionInfo(txid);
 		} catch (Exception e) {

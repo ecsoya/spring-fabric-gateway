@@ -16,7 +16,7 @@ public class FabricExplorerProperties {
 
 	private String hyperledgerExplorerUrl = "";
 
-	private String path = "/";
+	private String path = "/explorer";
 
 	private Map<String, Object> map;
 
@@ -51,6 +51,7 @@ public class FabricExplorerProperties {
 			map.put("logo", logo);
 			map.put("copyright", copyright);
 			map.put("hyperledgerExplorerUrl", hyperledgerExplorerUrl);
+			map.put("path", getPath());
 		}
 		return map;
 	}
@@ -65,9 +66,13 @@ public class FabricExplorerProperties {
 
 	public String getPath() {
 		if (path == null || path.equals("")) {
-			return "/";
-		} else if (!path.startsWith("/")) {
-			path = "/" + path;
+			return "";
+		}
+		if (path.startsWith("/")) {
+			path = path.substring(1);
+		}
+		if (path.endsWith("/")) {
+			path = path.substring(0, path.length() - 1);
 		}
 		return path;
 	}

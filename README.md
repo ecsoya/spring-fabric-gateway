@@ -1,6 +1,6 @@
 # Spring Fabric Gateway
 
-Provided Spring MVC services and spring boot starters based on [fabric-gateway-java](https://github.com/hyperledger/fabric-gateway-java), more info can be found from [https://ecsoya.github.io/fabric/](https://ecsoya.github.io/fabric/).
+Provided Spring MVC services and spring boot starters based on [fabric-gateway-java](https://github.com/hyperledger/fabric-gateway-java), more info can be found from [https://ecsoya.github.io/fabric/](https://ecsoya.github.io/fabric/)(中文).
 
 ### Dependencies
 

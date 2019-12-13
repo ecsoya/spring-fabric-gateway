@@ -1,4 +1,4 @@
-const basePath = $('#baseURL').val();
+const basePath = $('#baseURL').val() + '/' + $('#path').val() + '/';
 
 const key = $('#key').val();
 const type = $('#type').val();

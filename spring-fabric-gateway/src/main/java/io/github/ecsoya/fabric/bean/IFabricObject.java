@@ -1,6 +1,5 @@
 package io.github.ecsoya.fabric.bean;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,7 +23,4 @@ public interface IFabricObject {
 
 	Map<String, Object> getValues();
 
-	List<FabricQueryHistory> getQueryHistories();
-
-	void addQueryHistory(FabricQueryHistory history);
 }

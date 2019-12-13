@@ -1,4 +1,4 @@
-const basePath = $('#baseURL').val();
+const basePath = $('#baseURL').val() + '/' + $('#path').val() + '/';
 
 const viewTitle = $('#viewTitle').val();
 const loading = $('#loading').val();

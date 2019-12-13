@@ -1,4 +1,5 @@
-const basePath = $('#baseURL').val();
+const basePath = $('#baseURL').val() + '/' + $('#path').val() + '/';
+
 const blockNumber = $('#height').val();
 const viewTitle = $('#viewTitle').val();
 $(document).ready(function() {
