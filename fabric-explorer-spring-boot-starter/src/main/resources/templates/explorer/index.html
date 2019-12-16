@@ -13,9 +13,9 @@
 
 <!-- Bootstrap core CSS -->
 <link rel="shortcut icon" th:href="${baseURL + '/favicon.ico'}">
-<link th:href="${baseURL + '/css/bootstrap.min.css'}" rel="stylesheet">
-<link th:href="${baseURL + '/css/datatables.min.css'}" rel="stylesheet">
-<link th:href="${baseURL + '/css/main.css'}" rel="stylesheet">
+<link th:href="${baseURL + '/css/explorer/bootstrap.min.css'}" rel="stylesheet">
+<link th:href="${baseURL + '/css/explorer/datatables.min.css'}" rel="stylesheet">
+<link th:href="${baseURL + '/css/explorer/main.css'}" rel="stylesheet">
 </head>
 <body>
 	<input type="hidden" id="baseURL" th:value="${baseURL}" />
@@ -42,7 +42,7 @@
 					</form>
 
 					<a th:href="${hyperledgerExplorerUrl}"><img
-						th:src="${baseURL + '/img/hyperledger_explorer.svg'}" width="150" height="32"
+						th:src="${baseURL + '/img/explorer/hyperledger_explorer.svg'}" width="150" height="32"
 						alt="#{index.hyperledger.explorer.title}" data-toggle="tooltip"
 						title="#{index.hyperledger.explorer.title}"></a>
 				</div>
@@ -55,7 +55,7 @@
 					style="margin-top: 10px; margin-bottom: -30px;">
 					<ol class="breadcrumb bg-white">
 						<li class="breadcrumb-item"><a th:href="${baseURL + '/'}"><img
-								th:src="${baseURL + '/img/home.png'}" class="image" th:text="#{index.title}">
+								th:src="${baseURL + '/img/explorer/home.png'}" class="image" th:text="#{index.title}">
 						</a></li>
 						<li class="breadcrumb-item active" aria-current="page"
 							th:text="#{index.breadcrumb.blockchain}"></li>
@@ -73,7 +73,7 @@
 										th:title="#{index.blocks.desc}">-</h3>
 								</div>
 								<div>
-									<img th:src="${baseURL + '/img/blocks.png'}" class="image"
+									<img th:src="${baseURL + '/img/explorer/blocks.png'}" class="image"
 										th:text="#{index.blocks.name}">
 								</div>
 							</div>
@@ -92,7 +92,7 @@
 												th:title="#{index.network.peers.desc}" id="peerInfo">6</h3>
 										</div>
 										<div>
-											<img th:src="${baseURL + '/img/peer.png'}" class="image"
+											<img th:src="${baseURL + '/img/explorer/peer.png'}" class="image"
 												th:text="#{index.network.peers}">
 										</div>
 									</div>
@@ -101,7 +101,7 @@
 											<h3 data-toggle="tooltip" id="orgInfo">2</h3>
 										</div>
 										<div>
-											<img th:src="${baseURL + '/img/org.png'}" class="image"
+											<img th:src="${baseURL + '/img/explorer/org.png'}" class="image"
 												th:text="#{index.network.org}">
 										</div>
 
@@ -111,7 +111,7 @@
 											<h3 data-toggle="tooltip" id="commonInfo">common</h3>
 										</div>
 										<div>
-											<img th:src="${baseURL + '/img/channel.png'}" class="image"
+											<img th:src="${baseURL + '/img/explorer/channel.png'}" class="image"
 												th:text="#{index.network.channel}">
 										</div>
 
@@ -130,7 +130,7 @@
 									<h3 data-toggle="tooltip" id="chaincodeInfo"></h3>
 								</div>
 								<div>
-									<img th:src="${baseURL + '/img/smartcontract.png'}" class="image-sm">
+									<img th:src="${baseURL + '/img/explorer/smartcontract.png'}" class="image-sm">
 									<label th:text="#{index.chaincode.name}"></label>
 								</div>
 							</div>
@@ -180,12 +180,12 @@
 
 	</div>
 	<!-- Bootstrap core JavaScript -->
-	<script th:src="${baseURL + '/js/jquery.min.js'}"></script>
-	<script th:src="${baseURL + '/js/popper.min.js'}"></script>
-	<script th:src="${baseURL + '/js/bootstrap.min.js'}"></script>
-	<script th:src="${baseURL + '/js/datatables.min.js'}"></script>
-	<script th:src="${baseURL + '/js/common.js'}"></script>
-	<script th:src="${baseURL + '/js/index.js'}"></script>
+	<script th:src="${baseURL + '/js/explorer/jquery.min.js'}"></script>
+	<script th:src="${baseURL + '/js/explorer/popper.min.js'}"></script>
+	<script th:src="${baseURL + '/js/explorer/bootstrap.min.js'}"></script>
+	<script th:src="${baseURL + '/js/explorer/datatables.min.js'}"></script>
+	<script th:src="${baseURL + '/js/explorer/common.js'}"></script>
+	<script th:src="${baseURL + '/js/explorer/index.js'}"></script>
 </body>
 
 </html>

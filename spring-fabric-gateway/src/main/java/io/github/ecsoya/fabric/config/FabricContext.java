@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
 
@@ -176,6 +177,8 @@ public class FabricContext {
 		configFile = properties.getNetworkContents();
 		try {
 			builder = Gateway.createBuilder().identity(wallet, identifyName).networkConfig(configFile);
+			builder.commitTimeout(gatewayProps.getCommitTimeout(), TimeUnit.SECONDS);
+			builder.discovery(gatewayProps.isDiscovery());
 		} catch (IOException e) {
 			throw new FabricException("Initialize Gateway failed", e);
 		}
@@ -184,6 +187,7 @@ public class FabricContext {
 		logger.debug("Initialize Network... ");
 
 		network = gateway.getNetwork(channel);
+
 	}
 
 	private Wallet createWallet() {

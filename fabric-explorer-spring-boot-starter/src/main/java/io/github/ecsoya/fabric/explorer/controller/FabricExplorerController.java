@@ -41,7 +41,7 @@ public class FabricExplorerController {
 
 	@GetMapping("/")
 	public ModelAndView home(HttpServletRequest request) {
-		ModelAndView model = new ModelAndView("generic");
+		ModelAndView model = new ModelAndView("explorer/index");
 		model.addAllObjects(properties.toMap());
 		model.addObject("baseURL", baseUrl(request));
 		return model;
@@ -49,7 +49,7 @@ public class FabricExplorerController {
 
 	@GetMapping("/block")
 	public ModelAndView block(HttpServletRequest request, long height) {
-		ModelAndView model = new ModelAndView("block");
+		ModelAndView model = new ModelAndView("explorer/block");
 		model.addAllObjects(properties.toMap());
 		model.addObject("height", height);
 		model.addObject("baseURL", baseUrl(request));
@@ -58,7 +58,7 @@ public class FabricExplorerController {
 
 	@GetMapping("/tx")
 	public ModelAndView tx(HttpServletRequest request, String txid) {
-		ModelAndView model = new ModelAndView("tx");
+		ModelAndView model = new ModelAndView("explorer/tx");
 		model.addAllObjects(properties.toMap());
 		model.addObject("txid", txid);
 		model.addObject("baseURL", baseUrl(request));
@@ -67,7 +67,7 @@ public class FabricExplorerController {
 
 	@PostMapping("/history")
 	public ModelAndView history(HttpServletRequest request, String key, String type) {
-		ModelAndView model = new ModelAndView("history");
+		ModelAndView model = new ModelAndView("explorer/history");
 		model.addAllObjects(properties.toMap());
 		model.addObject("key", key);
 		model.addObject("type", type);

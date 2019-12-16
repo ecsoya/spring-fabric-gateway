@@ -9,35 +9,20 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title th:text="#{tx.title}"></title>
+<title>区块信息</title>
 
 <!-- Bootstrap core CSS -->
 <link rel="shortcut icon" th:href="${baseURL + '/favicon.ico'}">
-<link th:href="${baseURL + '/css/bootstrap.min.css'}" rel="stylesheet">
-<link th:href="${baseURL + '/css/datatables.min.css'}" rel="stylesheet">
-<link th:href="${baseURL + '/css/main.css'}" rel="stylesheet">
-<style type="text/css">
-table {
-	table-layout: fixed;
-}
-
-table td {
-	word-wrap: break-word;
-	max-width: 400px;
-}
-
-#example td {
-	white-space: inherit;
-}
-</style>
+<link th:href="${baseURL + '/css/explorer/bootstrap.min.css'}" rel="stylesheet">
+<link th:href="${baseURL + '/css/explorer/datatables.min.css'}" rel="stylesheet">
+<link th:href="${baseURL + '/css/explorer/main.css'}" rel="stylesheet">
 </head>
 <body>
 	<input type="hidden" id="baseURL" th:value="${baseURL}" />
 	<input type="hidden" id="path" th:value="${path}" />
-	<input type="hidden" id="txid" th:value="${txid}" />
-	<input type="hidden" id="view" th:value="#{tx.view}" />
-	<input type="hidden" id="viewHistory" th:value="#{tx.view.history}" />
-	<input type="hidden" id="viewDetails" th:value="#{tx.view.details}" />
+	<input type="hidden" id="height" th:value="${height}" />
+	<input type="hidden" id="viewTitle" th:value="#{block.view.title}">
+
 	<div class="wrapper">
 		<header class="header-top">
 			<nav class="navbar navbar-light bg-light">
@@ -57,7 +42,7 @@ table td {
 					</form>
 
 					<a th:href="${hyperledgerExplorerUrl}"><img
-						th:src="${baseURL + '/img/hyperledger_explorer.svg'}" width="150"
+						th:src="${baseURL + '/img/explorer/hyperledger_explorer.svg'}" width="150"
 						height="32" alt="#{index.hyperledger.explorer.title}"
 						data-toggle="tooltip" title="#{index.hyperledger.explorer.title}"></a>
 				</div>
@@ -69,82 +54,72 @@ table td {
 					style="margin-top: 10px; margin-bottom: -30px;">
 					<ol class="breadcrumb bg-white">
 						<li class="breadcrumb-item"><a th:href="${baseURL + '/'}"><img
-								th:src="${baseURL + '/img/home.png'}" class="image"
+								th:src="${baseURL + '/img/explorer/home.png'}" class="image"
 								th:text="#{index.title}"> </a></li>
 						<li class="breadcrumb-item active" aria-current="page"
 							th:text="#{index.breadcrumb.blockchain}"></li>
-						<li class="breadcrumb-item" th:text="#{index.breadcrumb.tx}"></li>
+						<li class="breadcrumb-item" th:text="#{index.breadcrumb.block}"></li>
 					</ol>
 				</nav>
 				<div class="row">
 					<div class="col-sm-12">
 						<div>
 							<div class="card mt-3">
-								<div class="card-header bg-fabric text-center text-white">
-									<label th:text="#{tx.title}"></label>
-								</div>
+								<div class="card-header bg-fabric text-center text-white"
+									th:text="#{index.blocks.title}"></div>
 								<ul class="list-group list-group-flush">
 									<li class="list-group-item"><div class="row">
 											<div class="col-sm-3">
-												<strong>ID</strong>
+												<strong th:text="#{block.block.height}"></strong>
 											</div>
 											<div class="col-sm-9">
-												<code id="txIdDisplay"> </code>
+												<code id="blockHeight" data-toggle="tooltip"
+													title="Block Height"> </code>
 											</div>
 										</div></li>
 									<li class="list-group-item"><div class="row">
 											<div class="col-sm-3">
-												<strong th:text="#{tx.time}"></strong>
+												<strong th:text="#{index.table.blockhash}"></strong>
 											</div>
 											<div class="col-sm-9">
-												<code id="txDateDisplay"> </code>
+												<code id="previousHash" data-toggle="tooltip"
+													title="Previous Hash"> </code>
 											</div>
 										</div></li>
-									<li class="list-group-item"><div class="row">
+									<li class="list-group-item">
+										<div class="row">
 											<div class="col-sm-3">
-												<strong th:text="#{tx.committer}"></strong>
+												<strong th:text="#{index.table.datahash}"></strong>
 											</div>
 											<div class="col-sm-9">
-												<code id="txCreatorDisplay"> </code>
+												<code id="dataHash" data-toggle="tooltip" title="Data Hash">
+												</code>
 											</div>
-										</div></li>
+										</div>
+									</li>
 								</ul>
 							</div>
 							<div class="card mt-3">
-								<div class="card-header bg-fabric text-center text-white">
-									<label th:text="#{tx.reads}"></label>
-								</div>
-								<table class="table table-styled" style="width: 100%"
-									id="readTable">
-									<thead>
-										<th width="5%">#</th>
-										<th width="30%">Key</th>
-										<th width="45%" th:text="#{tx.reads.items}"></th>
-										<th width="20%" th:text="#{tx.reads.others}"></th>
-									</thead>
-								</table>
-							</div>
-							<div class="card mt-3">
-								<div class="card-header bg-fabric text-center text-white">
-									<label th:text="#{tx.writes}"></label>
+								<div class="card-header d-flex justify-content-between">
+									<label th:text="#{block.table.title}">
 								</div>
 								<table class="table table-styled " style="width: 100%"
-									id="writeTable">
+									id="dataTable">
 									<thead>
-										<th width="5%">#</th>
-										<th width="30%">Key</th>
-										<th width="45%" th:text="#{tx.writes.items}"></th>
-										<th width="20%" th:text="#{tx.writes.delete}"></th>
+										<th>#</th>
+										<th th:text="#{block.table.id}"></th>
+										<th th:text="#{block.table.time}"></th>
 									</thead>
 								</table>
 							</div>
+						</div>
 
-							<div class="row mt-3 justify-content-center">
-								<a class="btn btn-primary" th:href="${baseURL + '/' + path}"
-									th:text="#{back}"></a>
-							</div>
+						<div class="row mt-3 justify-content-center">
+							<a class="btn btn-primary" th:href="${baseURL + '/' + path}"
+								th:text="#{back}"></a>
 						</div>
 					</div>
+
 				</div>
 			</div>
 		</div>
@@ -159,12 +134,12 @@ table td {
 		</footer>
 	</div>
 	<!-- Bootstrap core JavaScript -->
-	<script th:src="${baseURL + '/js/jquery.min.js'}"></script>
-	<script th:src="${baseURL + '/js/popper.min.js'}"></script>
-	<script th:src="${baseURL + '/js/bootstrap.min.js'}"></script>
-	<script th:src="${baseURL + '/js/datatables.min.js'}"></script>
-	<script th:src="${baseURL + '/js/common.js'}"></script>
-	<script th:src="${baseURL + '/js/tx.js'}"></script>
+	<script th:src="${baseURL + '/js/explorer/jquery.min.js'}"></script>
+	<script th:src="${baseURL + '/js/explorer/popper.min.js'}"></script>
+	<script th:src="${baseURL + '/js/explorer/bootstrap.min.js'}"></script>
+	<script th:src="${baseURL + '/js/explorer/datatables.min.js'}"></script>
+	<script th:src="${baseURL + '/js/explorer/common.js'}"></script>
+	<script th:src="${baseURL + '/js/explorer/block.js'}"></script>
 </body>
 
 </html>

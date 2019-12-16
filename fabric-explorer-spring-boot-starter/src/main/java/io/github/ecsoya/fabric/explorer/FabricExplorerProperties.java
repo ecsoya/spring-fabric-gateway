@@ -10,7 +10,7 @@ public class FabricExplorerProperties {
 
 	private String title = "Spring Fabric Explorer";
 
-	private String logo = "img/camel.png";
+	private String logo = "img/explorer/camel.png";
 
 	private String copyright = "Ecsoya (jin.liu@soyatec.com)";
 

@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.ecsoya</groupId>
 	<artifactId>spring-fabric-gateway-parent</artifactId>
-	<version>1.0.3</version>
+	<version>1.0.4</version>
 	<packaging>pom</packaging>
 
 	<name>spring-fabric-gateway-parent</name>
