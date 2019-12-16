@@ -1,3 +1,5 @@
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.ecsoya/spring-fabric-gateway/badge.svg?style=plastic)](https://maven-badges.herokuapp.com/maven-central/io.github.ecsoya/spring-fabric-gateway)
+
 # Spring Fabric Gateway
 
 Provided Spring MVC services and spring boot starters based on [fabric-gateway-java](https://github.com/hyperledger/fabric-gateway-java), more info can be found from [https://ecsoya.github.io/fabric/](https://ecsoya.github.io/fabric/)(中文).
