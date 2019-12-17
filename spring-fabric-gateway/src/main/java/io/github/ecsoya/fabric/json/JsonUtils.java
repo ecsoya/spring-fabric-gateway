@@ -12,6 +12,14 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
+/**
+ * JSON utility for serialize and deserialize the fabric objects.
+ * 
+ * @author Jin Liu (jin.liu@soyatec.com)
+ * @see JsonIgnore
+ * @see JsonIgnoreDeserialization
+ * @see JsonIgnoreSerialization
+ */
 public class JsonUtils {
 
 	private static Gson gson;

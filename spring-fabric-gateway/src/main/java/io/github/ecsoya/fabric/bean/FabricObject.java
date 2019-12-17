@@ -16,10 +16,20 @@ import lombok.Data;
 @Data
 public class FabricObject implements IFabricObject {
 
+	/**
+	 * The key or id of the object.
+	 */
 	private String id;
 
+	/**
+	 * The type of the object.
+	 */
 	private String type;
 
+	/**
+	 * Values of current object, it should be convert to/from JSON with gson
+	 * library.
+	 */
 	private Map<String, Object> values;
 
 	@Override

@@ -6,20 +6,48 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Arrays;
 
+/**
+ * The root configuration of the fabric and network.
+ * 
+ * @author ecsoya
+ *
+ * @see FabricContext
+ */
 public class FabricProperties {
 
+	/**
+	 * The channel name of fabric, required.
+	 */
 	private String channel;
 
+	/**
+	 * The organizations of fabric.
+	 */
 	private String[] organizations;
 
+	/**
+	 * The name of the fabric.
+	 */
 	private String name;
 
+	/**
+	 * The count of all peers.
+	 */
 	private int peers;
 
+	/**
+	 * The gateway configuration of fabric.
+	 */
 	private FabricGatewayProperties gateway;
 
+	/**
+	 * The network configuration of fabric.
+	 */
 	protected FabricNetworkProperties network;
 
+	/**
+	 * The chaincode configuration of fabric.
+	 */
 	private FabricChaincodeProperties chaincode;
 
 	public String getChannel() {
@@ -57,6 +85,9 @@ public class FabricProperties {
 		this.network = network;
 	}
 
+	/**
+	 * Load the contents of the network.
+	 */
 	public InputStream getNetworkContents() {
 		if (network == null) {
 			return null;

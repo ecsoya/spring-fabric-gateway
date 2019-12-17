@@ -12,7 +12,7 @@ import io.github.ecsoya.fabric.json.JsonUtils;
 import lombok.Data;
 
 /**
- * Fabric transaction reading set.
+ * Fabric transaction reads/writes.
  * 
  * @author ecsoya
  *
@@ -22,12 +22,24 @@ public class FabricTransactionRW {
 
 	private int index;
 
+	/**
+	 * Type of {@link IFabricObject}
+	 */
 	private String type = "";
 
+	/**
+	 * Id of {@link IFabricObject}
+	 */
 	private String key = "";
 
+	/**
+	 * Stringify value of values for {@link IFabricObject}
+	 */
 	private String value = "";
 
+	/**
+	 * Is deleted or not for Writes.
+	 */
 	private String remarks = "";
 
 	public static FabricTransactionRW fromRead(int index, KVRead read) {
@@ -66,6 +78,9 @@ public class FabricTransactionRW {
 		return txWrite;
 	}
 
+	/**
+	 * Try to extract 'values' from given value for {@link IFabricObject}.
+	 */
 	private static String simplifier(String value) {
 		try {
 			JsonElement tree = new JsonParser().parse(value);

@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import org.apache.http.annotation.Contract;
 import org.hyperledger.fabric.gateway.ContractException;
 import org.hyperledger.fabric.gateway.GatewayRuntimeException;
 import org.hyperledger.fabric.gateway.Transaction;
@@ -34,6 +35,13 @@ import org.slf4j.LoggerFactory;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Override the default {@link Contract} implementation.
+ * 
+ * @see FabricContract
+ * 
+ * @author Jin Liu (jin.liu@soyatec.com)
+ */
 @Slf4j
 public class FabricTransaction implements Transaction {
 	private static final Logger logger = LoggerFactory.getLogger(FabricTransaction.class);

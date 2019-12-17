@@ -9,11 +9,29 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+/**
+ * Fabric query constructor for CouchDB.
+ * 
+ * {@link http://docs.couchdb.org/en/stable/api/database/find.html?highlight=find#post--db-_find}
+ * 
+ * @author Jin Liu (jin.liu@soyatec.com)
+ * 
+ */
 public class FabricQuery {
 
+	/**
+	 * Equal parameters map.
+	 */
 	private Map<String, Object> equalsParams = new HashMap<>();
+
+	/**
+	 * Like parameters map.
+	 */
 	private Map<String, String> likeParams = new HashMap<>();
 
+	/**
+	 * The type of query.
+	 */
 	private String type;
 
 	public FabricQuery(String type) {

@@ -13,8 +13,14 @@ import lombok.Data;
 @Data
 public class FabricQueryHistory {
 
+	/**
+	 * Query date.
+	 */
 	private Date date;
 
+	/**
+	 * From IP Address.
+	 */
 	private String ip;
 
 	public FabricQueryHistory(String ip, Date date) {

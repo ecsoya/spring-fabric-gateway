@@ -8,9 +8,17 @@ import org.springframework.core.io.ClassPathResource;
 
 import io.github.ecsoya.fabric.config.FabricProperties;
 
+/**
+ * Configure {@link FabricProperties} with spring boot application.yml.
+ * 
+ * @author Jin Liu (jin.liu@soyatec.com)
+ */
 @ConfigurationProperties("spring.fabric")
 public class SpringFabricProperties extends FabricProperties {
 
+	/**
+	 * Load the network contents from classpath.
+	 */
 	@Override
 	public InputStream getNetworkContents() {
 		InputStream contents = super.getNetworkContents();

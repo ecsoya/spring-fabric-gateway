@@ -3,6 +3,11 @@ package io.github.ecsoya.fabric.json;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 
+/**
+ * @author Jin Liu (jin.liu@soyatec.com)
+ * @see JsonIgnore
+ * @see JsonUtils
+ */
 public class JsonIgnoreSerialization implements ExclusionStrategy {
 
 	public static final JsonIgnoreSerialization INSTANCE = new JsonIgnoreSerialization();

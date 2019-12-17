@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 import io.github.ecsoya.fabric.config.FabricContext;
 import io.github.ecsoya.fabric.service.IFabricInfoService;
@@ -15,7 +16,6 @@ import io.github.ecsoya.fabric.service.impl.FabricServiceImpl;
 
 @Configuration
 @EnableConfigurationProperties(SpringFabricProperties.class)
-
 public class SpringFabricGatewayAutoConfigure {
 
 	private Logger logger = LoggerFactory.getLogger(SpringFabricGatewayAutoConfigure.class);
@@ -24,6 +24,7 @@ public class SpringFabricGatewayAutoConfigure {
 	private SpringFabricProperties properties;
 
 	@Bean
+	@Primary
 	public FabricContext fabricContext() {
 		logger.info("Init SpringFabricGateway: " + properties);
 		return new FabricContext(properties);

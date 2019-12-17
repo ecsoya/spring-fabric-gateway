@@ -8,14 +8,31 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("spring.fabric.explorer")
 public class FabricExplorerProperties {
 
-	private String title = "Spring Fabric Explorer";
+	/**
+	 * The title of the fabric explorer
+	 */
+	private String title = "Fabric Explorer";
 
+	/**
+	 * The logo of the fabric explorer
+	 */
 	private String logo = "img/explorer/camel.png";
 
+	/**
+	 * The copyright text of the fabric explorer
+	 */
 	private String copyright = "Ecsoya (jin.liu@soyatec.com)";
 
+	/**
+	 * The external url link for default Hyperledger Explorer.
+	 */
 	private String hyperledgerExplorerUrl = "";
 
+	/**
+	 * The prefix path of fabric explorer.
+	 * 
+	 * @see FabricExplorerHandlerMapping
+	 */
 	private String path = "/explorer";
 
 	private Map<String, Object> map;

@@ -7,12 +7,21 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.condition.PatternsRequestCondition;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import io.github.ecsoya.fabric.explorer.controller.FabricExplorerController;
 
+/**
+ * Custom HandlerMapping for resolve {@link FabricExplorerController}.
+ * 
+ * It will add the {@link FabricExplorerProperties}.path before each
+ * {@link RequestMapping} of {@link FabricExplorerController}.
+ * 
+ * @author Jin Liu (jin.liu@soyatec.com)
+ */
 public class FabricExplorerHandlerMapping extends RequestMappingHandlerMapping {
 
 	private Logger logger = LoggerFactory.getLogger(FabricExplorerHandlerMapping.class);
@@ -46,19 +55,8 @@ public class FabricExplorerHandlerMapping extends RequestMappingHandlerMapping {
 	}
 
 	@Override
-	public void registerMapping(RequestMappingInfo mapping, Object handler, Method method) {
-		super.registerMapping(mapping, handler, method);
-	}
-
-	@Override
 	protected boolean isHandler(Class<?> beanType) {
 		return FabricExplorerController.class == beanType;
-	}
-
-	@Override
-	public void afterPropertiesSet() {
-		super.afterPropertiesSet();
-
 	}
 
 }

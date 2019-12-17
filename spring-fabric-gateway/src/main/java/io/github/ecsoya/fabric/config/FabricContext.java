@@ -1,5 +1,6 @@
 package io.github.ecsoya.fabric.config;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ import org.hyperledger.fabric.gateway.Network;
 import org.hyperledger.fabric.gateway.Wallet;
 import org.hyperledger.fabric.gateway.Wallet.Identity;
 import org.hyperledger.fabric.gateway.impl.ContractImpl;
+import org.hyperledger.fabric.gateway.impl.FileSystemWallet;
+import org.hyperledger.fabric.gateway.impl.InMemoryWallet;
 import org.hyperledger.fabric.gateway.impl.WalletIdentity;
 import org.hyperledger.fabric.protos.peer.FabricTransaction.TxValidationCode;
 import org.hyperledger.fabric.sdk.BlockInfo;
@@ -126,8 +129,6 @@ public class FabricContext {
 					"Initialize fabric gateway failed with invalid 'chaincode' name. Please make sure the chaincode is configured corrected by 'spring.fabric.chaincode'.");
 		}
 
-		Wallet wallet = createWallet();
-
 		InputStream configFile = properties.getNetworkContents();
 		if (configFile == null) {
 			throw new FabricException(
@@ -155,21 +156,31 @@ public class FabricContext {
 			logger.debug("Initialize Fabric Context: missing identify for wallet, and using default value: admin");
 		}
 
-		OrgInfo client = config.getClientOrganization();
-		if (client != null) {
-			UserInfo peerAdmin = client.getPeerAdmin();
-			if (peerAdmin != null) {
-				Enrollment enrollment = peerAdmin.getEnrollment();
-				if (enrollment != null) {
-					Identity admin = new WalletIdentity(peerAdmin.getMspId(), enrollment.getCert(),
-							enrollment.getKey());
-					try {
-						wallet.put(identifyName, admin);
-					} catch (IOException e) {
-						throw new FabricException("Initialize Wallet failed", e);
+		Wallet wallet = createWallet(walletProps);
+
+		if (wallet instanceof InMemoryWallet) {
+			OrgInfo client = config.getClientOrganization();
+			if (client != null) {
+				UserInfo peerAdmin = client.getPeerAdmin();
+				if (peerAdmin != null) {
+					Enrollment enrollment = peerAdmin.getEnrollment();
+					if (enrollment != null) {
+						Identity admin = new WalletIdentity(peerAdmin.getMspId(), enrollment.getCert(),
+								enrollment.getKey());
+						try {
+							wallet.put(identifyName, admin);
+						} catch (IOException e) {
+							throw new FabricException("Initialize Wallet failed", e);
+						}
+						logger.debug("Initialize Wallet " + identifyName);
 					}
-					logger.debug("Initialize Wallet " + identifyName);
 				}
+			}
+		} else {
+			FileSystemWallet fsWallet = (FileSystemWallet) wallet;
+			if (!fsWallet.exists(identifyName)) {
+				throw new FabricException("Initialize Wallet failed, there's not identify = '" + identifyName
+						+ "' exists in wallet directory: " + walletProps.getFile());
 			}
 		}
 
@@ -190,8 +201,16 @@ public class FabricContext {
 
 	}
 
-	private Wallet createWallet() {
-		return Wallet.createInMemoryWallet();
+	private Wallet createWallet(FabricWalletProperties config) {
+		if (config == null || config.isMemory() || config.getFile() == null || config.getFile().equals("")) {
+			return Wallet.createInMemoryWallet();
+		} else {
+			try {
+				return Wallet.createFileSystemWallet(new File(config.getFile()).toPath());
+			} catch (IOException e) {
+				return Wallet.createInMemoryWallet();
+			}
+		}
 	}
 
 	private FabricContract getContract() {

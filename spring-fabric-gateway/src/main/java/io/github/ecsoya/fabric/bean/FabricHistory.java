@@ -14,14 +14,26 @@ import lombok.Data;
 @Data
 public class FabricHistory {
 
+	/**
+	 * Transaction id of current history.
+	 */
 	private String txId;
 
 //	private JsonElement value;
 
+	/**
+	 * Modify timestamp of current history.
+	 */
 	private String timestamp;
 
+	/**
+	 * Mark is deleted or not.
+	 */
 	private boolean isDelete;
 
+	/**
+	 * Block object.
+	 */
 	private FabricBlock block;
 
 	public void setBlockInfo(BlockInfo blockInfo) {

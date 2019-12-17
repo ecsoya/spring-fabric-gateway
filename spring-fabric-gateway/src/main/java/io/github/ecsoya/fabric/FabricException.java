@@ -2,9 +2,6 @@ package io.github.ecsoya.fabric;
 
 public class FabricException extends RuntimeException {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6755525873084547174L;
 
 	public FabricException() {

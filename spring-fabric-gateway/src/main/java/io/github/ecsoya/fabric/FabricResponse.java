@@ -11,6 +11,9 @@ public class FabricResponse {
 
 	public final String errorMsg;
 
+	/**
+	 * The transaction id of execution.
+	 */
 	private String transactionId;
 
 	public FabricResponse(int status, String errorMsg) {

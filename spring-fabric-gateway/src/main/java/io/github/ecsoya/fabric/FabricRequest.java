@@ -2,7 +2,14 @@ package io.github.ecsoya.fabric;
 
 public class FabricRequest {
 
+	/**
+	 * Chaincode function name.
+	 */
 	public String function;
+
+	/**
+	 * Chaincode function arguments.
+	 */
 	public String[] arguments;
 
 	public FabricRequest(String function, String... arguments) {
