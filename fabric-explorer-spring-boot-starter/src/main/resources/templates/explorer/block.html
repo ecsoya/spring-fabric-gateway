@@ -43,8 +43,8 @@
 
 					<a th:href="${hyperledgerExplorerUrl}"><img
 						th:src="${baseURL + '/img/explorer/hyperledger_explorer.svg'}" width="150"
-						height="32" alt="#{index.hyperledger.explorer.title}"
-						data-toggle="tooltip" title="#{index.hyperledger.explorer.title}"></a>
+						height="32" th:alt="#{index.hyperledger.explorer.title}"
+						data-toggle="tooltip" th:title="#{index.hyperledger.explorer.title}"></a>
 				</div>
 			</nav>
 		</header>
