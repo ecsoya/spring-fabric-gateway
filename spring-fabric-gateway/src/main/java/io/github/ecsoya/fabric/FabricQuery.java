@@ -12,7 +12,9 @@ import com.google.gson.JsonObject;
 /**
  * Fabric query constructor for CouchDB.
  * 
- * {@link http://docs.couchdb.org/en/stable/api/database/find.html?highlight=find#post--db-_find}
+ * @see <a href=
+ *      "http://docs.couchdb.org/en/stable/api/database/find.html?highlight=find#post--db-_find">
+ *      CouchDB</a>
  * 
  * @author Jin Liu (jin.liu@soyatec.com)
  * 
@@ -68,7 +70,7 @@ public class FabricQuery {
 	/**
 	 * Generate query string for CouchDB.
 	 * 
-	 * @return
+	 * @return the selector.
 	 */
 	public String toJson() {
 		JsonObject query = new JsonObject();

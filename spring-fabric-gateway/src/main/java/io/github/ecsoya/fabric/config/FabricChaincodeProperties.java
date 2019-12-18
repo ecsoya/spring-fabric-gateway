@@ -13,8 +13,8 @@ public class FabricChaincodeProperties {
 	/**
 	 * The identify (name) of the chaincode, required.
 	 * 
-	 * The {@link Contract} and {@link FabricContract} would use this property to
-	 * create the chaincode instance.
+	 * The org.hyperledger.fabric.gateway.Contract and {@link FabricContract} would
+	 * use this property to create the chaincode instance.
 	 */
 	private String identify;
 

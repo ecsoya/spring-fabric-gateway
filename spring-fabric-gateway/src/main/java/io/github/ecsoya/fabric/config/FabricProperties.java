@@ -86,7 +86,7 @@ public class FabricProperties {
 	}
 
 	/**
-	 * Load the contents of the network.
+	 * @return Load the contents of the network.
 	 */
 	public InputStream getNetworkContents() {
 		if (network == null) {
