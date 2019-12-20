@@ -5,6 +5,8 @@ import org.hyperledger.fabric.gateway.impl.FileSystemWallet;
 import org.hyperledger.fabric.gateway.impl.InMemoryWallet;
 import org.hyperledger.fabric.gateway.impl.WalletIdentity;
 
+import lombok.Data;
+
 /**
  * The wallet configuration of fabric gateway.
  * 
@@ -12,6 +14,7 @@ import org.hyperledger.fabric.gateway.impl.WalletIdentity;
  * @see Wallet
  * @see WalletIdentity
  */
+@Data
 public class FabricWalletProperties {
 
 	/**
@@ -32,35 +35,6 @@ public class FabricWalletProperties {
 	 * 
 	 * @see WalletIdentity
 	 */
-	private String identify = "admin";
-
-	public boolean isMemory() {
-		return memory;
-	}
-
-	public void setMemory(boolean memory) {
-		this.memory = memory;
-	}
-
-	public String getFile() {
-		return file;
-	}
-
-	public void setFile(String file) {
-		this.file = file;
-	}
-
-	public String getIdentify() {
-		return identify;
-	}
-
-	public void setIdentify(String identify) {
-		this.identify = identify;
-	}
-
-	@Override
-	public String toString() {
-		return "FabricWalletProperties [memory=" + memory + ", file=" + file + ", identify=" + identify + "]";
-	}
+	private String identity = "admin";
 
 }

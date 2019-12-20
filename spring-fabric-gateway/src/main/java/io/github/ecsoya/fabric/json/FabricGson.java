@@ -1,8 +1,8 @@
 package io.github.ecsoya.fabric.json;
 
-import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.google.gson.FieldNamingPolicy;
@@ -12,43 +12,46 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
+import io.github.ecsoya.fabric.annotation.FabricIgnore;
+
 /**
  * JSON utility for serialize and deserialize the fabric objects.
  * 
  * @author Jin Liu (jin.liu@soyatec.com)
- * @see JsonIgnore
- * @see JsonIgnoreDeserialization
- * @see JsonIgnoreSerialization
+ * @see FabricIgnore
+ * @see FabricGsonDeserializeExclusionStrategy
+ * @see FabricGsonSerializeExclusionStrategy
  */
-public class JsonUtils {
+public class FabricGson {
 
 	private static Gson gson;
 
 	static {
 		gson = new GsonBuilder().enableComplexMapKeySerialization().setDateFormat(DateFormat.LONG)
 				.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).setVersion(1.0)
-				.addSerializationExclusionStrategy(JsonIgnoreSerialization.INSTANCE)
-				.addDeserializationExclusionStrategy(JsonIgnoreDeserialization.INSTANCE).create();
+				.addSerializationExclusionStrategy(FabricGsonSerializeExclusionStrategy.INSTANCE)
+				.addDeserializationExclusionStrategy(FabricGsonDeserializeExclusionStrategy.INSTANCE)
+				.setFieldNamingStrategy(new FabricGsonNamingStrategy()).create();
 	}
 
-	private JsonUtils() {
+	private FabricGson() {
 	}
 
-	public static String toJson(Object object) {
+	public static String stringify(Object object) {
 		if (object == null) {
 			return null;
 		}
 		return gson.toJson(object);
 	}
 
-	public static JsonElement toJsonTree(Object object) {
+	public static JsonElement json(Object object) {
 		if (object == null) {
 			return null;
 		}
 		return gson.toJsonTree(object);
 	}
 
-	public static <T> T fromJson(String json, Class<T> type) {
+	public static <T> T build(String json, Class<T> type) {
 		if (json == null) {
 			return null;
 		}
@@ -56,7 +59,7 @@ public class JsonUtils {
 		return gson.fromJson(json, type);
 	}
 
-	public static <T> T fromJson(JsonElement json, Class<T> type) {
+	public static <T> T build(JsonElement json, Class<T> type) {
 		if (json == null) {
 			return null;
 		}
@@ -64,18 +67,17 @@ public class JsonUtils {
 		return gson.fromJson(json, type);
 	}
 
-	public static <T> T[] fromJsonArray(String json, Class<T> type) {
+	public static <T> List<T> buildList(String json, Class<T> type) {
 		JsonParser parser = new JsonParser();
 		JsonElement element = parser.parse(json);
-		return fromJsonArray(element, type);
+		return buildList(element, type);
 	}
 
-	@SuppressWarnings("unchecked")
-	public static <T> T[] fromJsonArray(JsonElement element, Class<T> type) {
-		List<T> results = new ArrayList<>();
+	public static <T> List<T> buildList(JsonElement element, Class<T> type) {
 		if (element == null || !element.isJsonArray()) {
-			return (T[]) Array.newInstance(type, 0);
+			return Collections.emptyList();
 		}
+		List<T> results = new ArrayList<>();
 
 		JsonArray array = element.getAsJsonArray();
 		for (JsonElement child : array) {
@@ -87,7 +89,7 @@ public class JsonUtils {
 			}
 			results.add(value);
 		}
-		return results.toArray((T[]) Array.newInstance(type, results.size()));
+		return results;
 	}
 
 }

@@ -3,12 +3,15 @@ package io.github.ecsoya.fabric.config;
 import org.hyperledger.fabric.gateway.Gateway;
 import org.hyperledger.fabric.gateway.impl.GatewayImpl;
 
+import lombok.Data;
+
 /**
  * The configuration properties of the {@link Gateway}.
  * 
  * @author ecsoya
  *
  */
+@Data
 public class FabricGatewayProperties {
 
 	/**
@@ -47,54 +50,6 @@ public class FabricGatewayProperties {
 	 * 
 	 * @see GatewayImpl
 	 */
-	private FabricWalletProperties wallet;
-
-	public FabricWalletProperties getWallet() {
-		if (wallet == null) {
-			wallet = new FabricWalletProperties();
-		}
-		return wallet;
-	}
-
-	public void setWallet(FabricWalletProperties wallet) {
-		this.wallet = wallet;
-	}
-
-	@Override
-	public String toString() {
-		return "FabricGatewayProperties [wallet=" + wallet + "]";
-	}
-
-	public long getCommitTimeout() {
-		return commitTimeout;
-	}
-
-	public void setCommitTimeout(long commitTimeout) {
-		this.commitTimeout = commitTimeout;
-	}
-
-	public boolean isDiscovery() {
-		return discovery;
-	}
-
-	public void setDiscovery(boolean discovery) {
-		this.discovery = discovery;
-	}
-
-	public String getCommitHandler() {
-		return commitHandler;
-	}
-
-	public void setCommitHandler(String commitHandler) {
-		this.commitHandler = commitHandler;
-	}
-
-	public String getQueryHandler() {
-		return queryHandler;
-	}
-
-	public void setQueryHandler(String queryHandler) {
-		this.queryHandler = queryHandler;
-	}
+	private FabricWalletProperties wallet = new FabricWalletProperties();
 
 }

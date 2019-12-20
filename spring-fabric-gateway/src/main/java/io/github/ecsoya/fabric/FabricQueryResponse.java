@@ -3,7 +3,7 @@ package io.github.ecsoya.fabric;
 import java.nio.charset.Charset;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hyperledger.fabric.sdk.ChaincodeResponse.Status;
@@ -16,7 +16,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
-import io.github.ecsoya.fabric.json.JsonUtils;
+import io.github.ecsoya.fabric.json.FabricGson;
+import io.github.ecsoya.fabric.utils.FabricUtil;
 
 public class FabricQueryResponse<T> extends FabricResponse {
 
@@ -112,7 +113,7 @@ public class FabricQueryResponse<T> extends FabricResponse {
 				return null;
 			}
 		} else if (!value.equals("")) {
-			return JsonUtils.fromJson(value, type);
+			return FabricUtil.build(value, type);
 		}
 		return null;
 	}
@@ -164,13 +165,16 @@ public class FabricQueryResponse<T> extends FabricResponse {
 
 				meta = object.get("meta");
 			}
+			List<T> results = new ArrayList<>();
 
-			T[] values = JsonUtils.fromJsonArray(array, type);
-
-			FabricQueryResponse<List<T>> res = success(Arrays.asList(values));
+			for (JsonElement child : array) {
+				T value = FabricUtil.build(FabricGson.stringify(child), type);
+				results.add(value);
+			}
+			FabricQueryResponse<List<T>> res = success(results);
 
 			if (meta != null) {
-				res.setMetadata(JsonUtils.fromJson(meta, FabricQueryResponseMetadata.class));
+				res.setMetadata(FabricGson.build(meta, FabricQueryResponseMetadata.class));
 			}
 			return res;
 

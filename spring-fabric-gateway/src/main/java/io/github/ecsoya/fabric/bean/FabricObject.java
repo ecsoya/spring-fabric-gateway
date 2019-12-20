@@ -32,11 +32,6 @@ public class FabricObject implements IFabricObject {
 	 */
 	private Map<String, Object> values;
 
-	@Override
-	public String getType() {
-		return type;
-	}
-
 	public void put(String key, Object value) {
 		if (values == null) {
 			values = new HashMap<String, Object>();

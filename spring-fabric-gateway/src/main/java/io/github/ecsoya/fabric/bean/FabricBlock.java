@@ -6,6 +6,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 
 import io.github.ecsoya.fabric.utils.FabricUtil;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * Fabric block which contains blockNumber, dataHash...
@@ -14,15 +15,12 @@ import lombok.Data;
  *
  */
 @Data
-public class FabricBlock {
-
-	private long blockNumber;
+@EqualsAndHashCode(callSuper = true)
+public class FabricBlock extends FabricIdentity {
 
 	private String channel;
 
 	private int transactionCount;
-
-	private String dataHash;
 
 	private String chaincode;
 

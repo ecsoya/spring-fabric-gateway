@@ -8,7 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import io.github.ecsoya.fabric.json.JsonUtils;
+import io.github.ecsoya.fabric.json.FabricGson;
 import lombok.Data;
 
 /**
@@ -88,7 +88,7 @@ public class FabricTransactionRW {
 				JsonObject obj = tree.getAsJsonObject();
 				JsonElement valuesObj = obj.get("values");
 				if (valuesObj != null) {
-					return JsonUtils.toJson(valuesObj);
+					return FabricGson.stringify(valuesObj);
 				}
 			}
 		} catch (Exception e) {

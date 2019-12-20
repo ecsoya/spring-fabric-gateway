@@ -12,51 +12,61 @@ package io.github.ecsoya.fabric.chaincode;
  * @author ecsoya
  *
  */
-public interface ChaincodeConstants {
+public enum FunctionType {
 
 	/**
 	 * Function for create.
 	 */
-	String FUNCTION_CREATE = "create";
+	FUNCTION_CREATE("create"),
 
 	/**
 	 * Single element query by id and type.
 	 */
-	String FUNCTION_GET = "get";
+	FUNCTION_GET("get"),
 
 	/**
 	 * Delete function with id and type.
 	 */
-	String FUNCTION_DELETE = "delete";
+	FUNCTION_DELETE("delete"),
 
 	/**
 	 * Update function.
 	 */
-	String FUNCTION_UPDATE = "update";
+	FUNCTION_UPDATE("update"),
 
 	/**
 	 * Query(Page query) function name.
 	 */
-	String FUNCTION_QUERY = "query";
+	FUNCTION_QUERY("query"),
 
 	/**
 	 * Query all (limit 100 records by fabric chaincodes defaultly.)
 	 */
-	String FUNCTION_LIST = "list";
+	FUNCTION_LIST("list"),
 
 	/**
 	 * Query history of element function.
 	 */
-	String FUNCTION_HISTORY = "history";
+	FUNCTION_HISTORY("history"),
 
 	/**
 	 * Query count of element function
 	 */
-	String FUNCTION_COUNT = "count";
+	FUNCTION_COUNT("count"),
 
 	/**
 	 * Check if exists of element function
 	 */
-	String FUNCTION_EXISTS = "exists";
+	FUNCTION_EXISTS("exists");
+
+	private final String functionName;
+
+	private FunctionType(String functionName) {
+		this.functionName = functionName;
+	}
+
+	public String getFunctionName() {
+		return functionName;
+	}
 
 }

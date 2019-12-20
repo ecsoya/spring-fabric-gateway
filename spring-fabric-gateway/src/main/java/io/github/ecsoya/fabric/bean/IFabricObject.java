@@ -1,7 +1,5 @@
 package io.github.ecsoya.fabric.bean;
 
-import java.util.Map;
-
 /**
  * 
  * Fabric object interface.
@@ -11,11 +9,13 @@ import java.util.Map;
  */
 public interface IFabricObject {
 
+	public static final String DEFAULT_TYPE = IFabricObject.class.getName();
+
 	/**
 	 * The type of the object, the default is the class type.
 	 */
 	default String getType() {
-		return getClass().getName();
+		return DEFAULT_TYPE;
 	}
 
 	/**
@@ -27,15 +27,5 @@ public interface IFabricObject {
 	 * Set new id for current object.
 	 */
 	void setId(String id);
-
-	/**
-	 * Set value maps for current object.
-	 */
-	void setValues(Map<String, Object> values);
-
-	/**
-	 * Get values of current object.
-	 */
-	Map<String, Object> getValues();
 
 }

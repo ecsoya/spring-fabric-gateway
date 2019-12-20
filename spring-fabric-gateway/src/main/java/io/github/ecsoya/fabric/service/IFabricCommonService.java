@@ -8,9 +8,8 @@ import io.github.ecsoya.fabric.FabricQuery;
 import io.github.ecsoya.fabric.FabricQueryResponse;
 import io.github.ecsoya.fabric.FabricResponse;
 import io.github.ecsoya.fabric.bean.IFabricObject;
-import io.github.ecsoya.fabric.chaincode.ChaincodeConstants;
 
-public interface IChaincodeService<T extends IFabricObject> extends ChaincodeConstants, IFabricBlockService {
+public interface IFabricCommonService<T extends IFabricObject> extends IFabricBlockCommonService<T> {
 
 	/**
 	 * Create object and send to ledger.
@@ -28,18 +27,16 @@ public interface IChaincodeService<T extends IFabricObject> extends ChaincodeCon
 	/**
 	 * Delete the object with given key from ledger.
 	 * 
-	 * @param type TODO
 	 */
-	public FabricResponse delete(String key, String type);
+	public FabricResponse delete(String key);
 
 	/**
 	 * 
 	 * Get the object with key from ledger.
 	 * 
-	 * @param type TODO
 	 * 
 	 */
-	public FabricQueryResponse<T> get(String key, String type);
+	public FabricQueryResponse<T> get(String key);
 
 	/**
 	 * 

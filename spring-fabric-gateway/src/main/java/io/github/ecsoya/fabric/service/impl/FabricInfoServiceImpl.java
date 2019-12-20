@@ -13,7 +13,7 @@ import io.github.ecsoya.fabric.bean.FabricHistory;
 import io.github.ecsoya.fabric.bean.FabricLedger;
 import io.github.ecsoya.fabric.bean.FabricTransaction;
 import io.github.ecsoya.fabric.bean.FabricTransactionRWSet;
-import io.github.ecsoya.fabric.chaincode.ChaincodeConstants;
+import io.github.ecsoya.fabric.chaincode.FunctionType;
 import io.github.ecsoya.fabric.config.FabricContext;
 import io.github.ecsoya.fabric.service.IFabricInfoService;
 import io.github.ecsoya.fabric.utils.FabricUtil;
@@ -150,8 +150,8 @@ public class FabricInfoServiceImpl implements IFabricInfoService {
 	@Override
 	public FabricQueryResponse<List<FabricHistory>> queryHistory(String type, String key) {
 		try {
-			return fabricContext
-					.queryMany(new FabricQueryRequest<>(FabricHistory.class, ChaincodeConstants.FUNCTION_HISTORY, type, key));
+			return fabricContext.queryMany(new FabricQueryRequest<>(FabricHistory.class,
+					fabricContext.getFunction(FunctionType.FUNCTION_HISTORY), type, key));
 		} catch (Exception e) {
 			return FabricQueryResponse.failure(e.getLocalizedMessage());
 		}

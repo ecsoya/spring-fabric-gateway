@@ -4,7 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.Arrays;
+
+import lombok.Data;
 
 /**
  * The root configuration of the fabric and network.
@@ -13,6 +14,7 @@ import java.util.Arrays;
  *
  * @see FabricContext
  */
+@Data
 public class FabricProperties {
 
 	/**
@@ -38,52 +40,17 @@ public class FabricProperties {
 	/**
 	 * The gateway configuration of fabric.
 	 */
-	private FabricGatewayProperties gateway;
+	private FabricGatewayProperties gateway = new FabricGatewayProperties();
 
 	/**
 	 * The network configuration of fabric.
 	 */
-	protected FabricNetworkProperties network;
+	protected FabricNetworkProperties network = new FabricNetworkProperties();
 
 	/**
 	 * The chaincode configuration of fabric.
 	 */
-	private FabricChaincodeProperties chaincode;
-
-	public String getChannel() {
-		return channel;
-	}
-
-	public void setChannel(String channel) {
-		this.channel = channel;
-	}
-
-	public String[] getOrganizations() {
-		return organizations;
-	}
-
-	public void setOrganizations(String[] organizations) {
-		this.organizations = organizations;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public FabricNetworkProperties getNetwork() {
-		if (network == null) {
-			network = new FabricNetworkProperties();
-		}
-		return network;
-	}
-
-	public void setNetwork(FabricNetworkProperties network) {
-		this.network = network;
-	}
+	private FabricChaincodeProperties chaincode = new FabricChaincodeProperties();
 
 	/**
 	 * @return Load the contents of the network.
@@ -105,43 +72,6 @@ public class FabricProperties {
 		} catch (FileNotFoundException e) {
 			return null;
 		}
-	}
-
-	public FabricGatewayProperties getGateway() {
-		if (gateway == null) {
-			gateway = new FabricGatewayProperties();
-		}
-		return gateway;
-	}
-
-	public void setGateway(FabricGatewayProperties gateway) {
-		this.gateway = gateway;
-	}
-
-	public FabricChaincodeProperties getChaincode() {
-		if (chaincode == null) {
-			chaincode = new FabricChaincodeProperties();
-		}
-		return chaincode;
-	}
-
-	public void setChaincode(FabricChaincodeProperties chaincode) {
-		this.chaincode = chaincode;
-	}
-
-	public int getPeers() {
-		return peers;
-	}
-
-	public void setPeers(int peers) {
-		this.peers = peers;
-	}
-
-	@Override
-	public String toString() {
-		return "FabricProperties [chaincode=" + chaincode + ", channel=" + channel + ", organizations="
-				+ Arrays.toString(organizations) + ", name=" + name + ", peers=" + peers + ", gateway=" + gateway
-				+ ", network=" + network + "]";
 	}
 
 }

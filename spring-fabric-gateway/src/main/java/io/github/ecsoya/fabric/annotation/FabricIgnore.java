@@ -1,4 +1,4 @@
-package io.github.ecsoya.fabric.json;
+package io.github.ecsoya.fabric.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.FIELD, ElementType.TYPE })
-public @interface JsonIgnore {
+public @interface FabricIgnore {
 
 	/**
 	 * Ignore to write, default is true

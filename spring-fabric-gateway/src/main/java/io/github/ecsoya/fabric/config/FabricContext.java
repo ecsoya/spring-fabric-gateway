@@ -19,7 +19,6 @@ import org.hyperledger.fabric.gateway.Network;
 import org.hyperledger.fabric.gateway.Wallet;
 import org.hyperledger.fabric.gateway.Wallet.Identity;
 import org.hyperledger.fabric.gateway.impl.ContractImpl;
-import org.hyperledger.fabric.gateway.impl.FileSystemWallet;
 import org.hyperledger.fabric.gateway.impl.InMemoryWallet;
 import org.hyperledger.fabric.gateway.impl.WalletIdentity;
 import org.hyperledger.fabric.protos.peer.FabricTransaction.TxValidationCode;
@@ -51,12 +50,13 @@ import io.github.ecsoya.fabric.bean.FabricHistory;
 import io.github.ecsoya.fabric.bean.FabricLedger;
 import io.github.ecsoya.fabric.bean.FabricTransaction;
 import io.github.ecsoya.fabric.bean.FabricTransactionRWSet;
+import io.github.ecsoya.fabric.chaincode.FunctionType;
 import io.github.ecsoya.fabric.gateway.FabricContract;
 
 public class FabricContext {
 	private Logger logger = LoggerFactory.getLogger(FabricContext.class);
 
-	private FabricProperties properties;
+	private final FabricProperties properties;
 
 	private Gateway.Builder builder;
 	private Network network;
@@ -70,6 +70,48 @@ public class FabricContext {
 		if (properties == null) {
 			properties = new FabricProperties();
 		}
+	}
+
+	public FabricProperties getProperties() {
+		return properties;
+	}
+
+	public String getFunction(FunctionType type) {
+		if (type == null) {
+			return null;
+		}
+		if (properties == null) {
+			return type.getFunctionName();
+		}
+		FabricChaincodeProperties chaincode = properties.getChaincode();
+		if (chaincode == null) {
+			return type.getFunctionName();
+		}
+		FabricChaincodeFunctionProperties functions = chaincode.getFunctions();
+		if (functions == null) {
+			return type.getFunctionName();
+		}
+		switch (type) {
+		case FUNCTION_CREATE:
+			return functions.getCreate();
+		case FUNCTION_UPDATE:
+			return functions.getUpdate();
+		case FUNCTION_COUNT:
+			return functions.getCount();
+		case FUNCTION_DELETE:
+			return functions.getDelete();
+		case FUNCTION_EXISTS:
+			return functions.getExists();
+		case FUNCTION_GET:
+			return functions.getGet();
+		case FUNCTION_HISTORY:
+			return functions.getHistory();
+		case FUNCTION_QUERY:
+			return functions.getQuery();
+		default:
+			break;
+		}
+		return null;
 	}
 
 	private void aboutToShutdown() {
@@ -150,10 +192,10 @@ public class FabricContext {
 
 		FabricWalletProperties walletProps = gatewayProps.getWallet();
 
-		String identifyName = walletProps.getIdentify();
-		if (identifyName == null || identifyName.equals("")) {
-			identifyName = "admin";
-			logger.debug("Initialize Fabric Context: missing identify for wallet, and using default value: admin");
+		String identityName = walletProps.getIdentity();
+		if (identityName == null || identityName.equals("")) {
+			identityName = "admin";
+			logger.debug("Initialize Fabric Context: missing identity for wallet, and using default value: admin");
 		}
 
 		Wallet wallet = createWallet(walletProps);
@@ -168,26 +210,30 @@ public class FabricContext {
 						Identity admin = new WalletIdentity(peerAdmin.getMspId(), enrollment.getCert(),
 								enrollment.getKey());
 						try {
-							wallet.put(identifyName, admin);
+							wallet.put(identityName, admin);
 						} catch (IOException e) {
 							throw new FabricException("Initialize Wallet failed", e);
 						}
-						logger.debug("Initialize Wallet " + identifyName);
+						logger.debug("Initialize Wallet " + identityName);
 					}
 				}
 			}
-		} else {
-			FileSystemWallet fsWallet = (FileSystemWallet) wallet;
-			if (!fsWallet.exists(identifyName)) {
-				throw new FabricException("Initialize Wallet failed, there's not identify = '" + identifyName
+		}
+
+		try {
+			if (!wallet.exists(identityName)) {
+				throw new FabricException("Initialize Wallet failed, there's no identity = '" + identityName
 						+ "' exists in wallet directory: " + walletProps.getFile());
 			}
+		} catch (IOException e1) {
+			throw new FabricException("Initialize Wallet failed, there's no identity = '" + identityName
+					+ "' exists in wallet directory: " + walletProps.getFile());
 		}
 
 		logger.debug("Initialize Gateway... ");
 		configFile = properties.getNetworkContents();
 		try {
-			builder = Gateway.createBuilder().identity(wallet, identifyName).networkConfig(configFile);
+			builder = Gateway.createBuilder().identity(wallet, identityName).networkConfig(configFile);
 			builder.commitTimeout(gatewayProps.getCommitTimeout(), TimeUnit.SECONDS);
 			builder.discovery(gatewayProps.isDiscovery());
 		} catch (IOException e) {

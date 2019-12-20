@@ -11,12 +11,12 @@ import io.github.ecsoya.fabric.bean.FabricBlock;
 import io.github.ecsoya.fabric.bean.FabricHistory;
 import io.github.ecsoya.fabric.bean.IFabricObject;
 import io.github.ecsoya.fabric.config.FabricContext;
-import io.github.ecsoya.fabric.service.IChaincodeService2;
+import io.github.ecsoya.fabric.service.IFabricService;
 
-public abstract class ContextChaincodeService<T extends IFabricObject> extends ChaincodeServiceBase<T>
-		implements IChaincodeService2<T> {
+public abstract class AbstractFabricService<T extends IFabricObject> extends AbstractFabricCommonService<T>
+		implements IFabricService<T> {
 
-	public ContextChaincodeService(FabricContext fabricContext) {
+	public AbstractFabricService(FabricContext fabricContext) {
 		super(fabricContext);
 	}
 
@@ -41,18 +41,18 @@ public abstract class ContextChaincodeService<T extends IFabricObject> extends C
 	}
 
 	@Override
-	public int extDelete(String key, String type) {
-		return delete(key, type).status;
+	public int extDelete(String key) {
+		return delete(key).status;
 	}
 
 	@Override
-	public T extGet(String key, String type) {
-		return get(key, type).data;
+	public T extGet(String key) {
+		return get(key).data;
 	}
 
 	@Override
-	public List<FabricHistory> extHistory(String key, String type) {
-		return history(key, type).data;
+	public List<FabricHistory> extHistory(String key) {
+		return history(key).data;
 	}
 
 	@Override
@@ -88,8 +88,8 @@ public abstract class ContextChaincodeService<T extends IFabricObject> extends C
 	}
 
 	@Override
-	public FabricBlock extBlock(String key, String type) {
-		return block(key, type).data;
+	public FabricBlock extBlock(String key) {
+		return block(key).data;
 	}
 
 }

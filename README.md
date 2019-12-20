@@ -25,7 +25,7 @@ Firstly, add the following dependency to your project's `pom.xml` file:
 <dependency>
 	<groupId>io.github.ecsoya</groupId>
 	<artifactId>fabric-gateway-spring-boot-starter</artifactId>
-	<version>1.0.5</version>
+	<version>1.0.6-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -36,7 +36,7 @@ or
 <dependency>
 	<groupId>io.github.ecsoya</groupId>
 	<artifactId>fabric-explorer-spring-boot-starter</artifactId>
-	<version>1.0.5</version>
+	<version>1.0.6-SNAPSHOT</version>
 </dependency>
 ```
 

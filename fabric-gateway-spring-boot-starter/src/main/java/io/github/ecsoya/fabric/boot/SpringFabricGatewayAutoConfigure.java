@@ -10,9 +10,9 @@ import org.springframework.context.annotation.Primary;
 
 import io.github.ecsoya.fabric.config.FabricContext;
 import io.github.ecsoya.fabric.service.IFabricInfoService;
-import io.github.ecsoya.fabric.service.IFabricService;
+import io.github.ecsoya.fabric.service.IFabricObjectService;
 import io.github.ecsoya.fabric.service.impl.FabricInfoServiceImpl;
-import io.github.ecsoya.fabric.service.impl.FabricServiceImpl;
+import io.github.ecsoya.fabric.service.impl.FabricObjectServiceImpl;
 
 @Configuration
 @EnableConfigurationProperties(SpringFabricProperties.class)
@@ -31,8 +31,8 @@ public class SpringFabricGatewayAutoConfigure {
 	}
 
 	@Bean
-	public IFabricService fabricService(FabricContext fabricContext) {
-		return new FabricServiceImpl(fabricContext);
+	public IFabricObjectService fabricService(FabricContext fabricContext) {
+		return new FabricObjectServiceImpl(fabricContext);
 	}
 
 	@Bean

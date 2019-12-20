@@ -72,7 +72,7 @@ public class FabricQuery {
 	 * 
 	 * @return the selector.
 	 */
-	public String toJson() {
+	public String selector() {
 		JsonObject query = new JsonObject();
 		JsonObject selector = new JsonObject();
 
