@@ -25,6 +25,16 @@ public class FabricContract implements Contract {
 
 	private ContractImpl delegate;
 
+	/**
+	 * @since 1.0.6
+	 */
+	private long ordererTimeout = 60; // seconds
+
+	/**
+	 * @since 1.0.6
+	 */
+	private long proposalTimeout = 5; // seconds
+
 	public FabricContract(ContractImpl delegate) {
 		this.delegate = delegate;
 	}
@@ -37,7 +47,10 @@ public class FabricContract implements Contract {
 	public String executeTransaction(String name, String... args)
 			throws ContractException, TimeoutException, InterruptedException {
 		TransactionImpl tx = (TransactionImpl) delegate.createTransaction(name);
-		return new FabricTransaction(tx, delegate).execute(args);
+		FabricTransaction fabricTransaction = new FabricTransaction(tx, delegate);
+		fabricTransaction.setOrdererTimeout(getOrdererTimeout());
+		fabricTransaction.setProposalTimeout(getProposalTimeout());
+		return fabricTransaction.execute(args);
 	}
 
 	@Override
@@ -104,6 +117,22 @@ public class FabricContract implements Contract {
 	@Override
 	public void removeContractListener(Consumer<ContractEvent> listener) {
 		delegate.removeContractListener(listener);
+	}
+
+	public long getOrdererTimeout() {
+		return ordererTimeout;
+	}
+
+	public void setOrdererTimeout(long ordererTimeout) {
+		this.ordererTimeout = ordererTimeout;
+	}
+
+	public long getProposalTimeout() {
+		return proposalTimeout;
+	}
+
+	public void setProposalTimeout(long proposalTimeout) {
+		this.proposalTimeout = proposalTimeout;
 	}
 
 }

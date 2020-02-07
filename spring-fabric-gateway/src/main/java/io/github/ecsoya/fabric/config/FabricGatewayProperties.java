@@ -25,6 +25,16 @@ public class FabricGatewayProperties {
 	private long commitTimeout = 10;
 
 	/**
+	 * @since 1.0.6
+	 */
+	private long ordererTimeout = 60; // seconds
+
+	/**
+	 * @since 1.0.6
+	 */
+	private long proposalTimeout = 5; // seconds
+
+	/**
 	 * Discovery of gateway builder.
 	 * 
 	 * @see GatewayImpl

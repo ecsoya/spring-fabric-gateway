@@ -45,6 +45,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FabricTransaction implements Transaction {
 	private static final Logger logger = LoggerFactory.getLogger(FabricTransaction.class);
+
+	/**
+	 * @since 1.0.6
+	 */
+	private long ordererTimeout = 60; // seconds
+
+	/**
+	 * @since 1.0.6
+	 */
+	private long proposalTimeout = 5; // seconds
+
 	private TransactionImpl delegate;
 	private TimePeriod commitTimeout;
 	private CommitHandlerFactory commitHandlerFactory;
@@ -120,7 +131,7 @@ public class FabricTransaction implements Transaction {
 			commitHandler.startListening();
 
 			try {
-				channel.sendTransaction(validResponses, transactionOptions).get(60, TimeUnit.SECONDS);
+				channel.sendTransaction(validResponses, transactionOptions).get(getOrdererTimeout(), TimeUnit.SECONDS);
 			} catch (TimeoutException e) {
 				commitHandler.cancelListening();
 				throw e;
@@ -155,7 +166,7 @@ public class FabricTransaction implements Transaction {
 		request.setChaincodeID(getChaincodeId());
 		request.setFcn(getName());
 		request.setArgs(args);
-		request.setProposalWaitTime(3000);
+		request.setProposalWaitTime(getProposalTimeout() * 1000);
 	}
 
 	private ChaincodeID getChaincodeId() {
@@ -200,6 +211,22 @@ public class FabricTransaction implements Transaction {
 		}
 
 		return validResponses;
+	}
+
+	public long getOrdererTimeout() {
+		return ordererTimeout;
+	}
+
+	public void setOrdererTimeout(long ordererTimeout) {
+		this.ordererTimeout = ordererTimeout;
+	}
+
+	public long getProposalTimeout() {
+		return proposalTimeout;
+	}
+
+	public void setProposalTimeout(long proposalTimeout) {
+		this.proposalTimeout = proposalTimeout;
 	}
 
 }

@@ -6,8 +6,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
@@ -62,9 +60,6 @@ public class FabricContext {
 	private Network network;
 	private FabricContract contract;
 
-	private Timer timer = new Timer(true);;
-	private TimerTask shutdownTask;
-
 	public FabricContext(FabricProperties properties) {
 		this.properties = properties;
 		if (properties == null) {
@@ -112,44 +107,6 @@ public class FabricContext {
 			break;
 		}
 		return null;
-	}
-
-	private void aboutToShutdown() {
-
-		// Always keep only 1 task;
-		cancelShutdown();
-
-		shutdownTask = new TimerTask() {
-
-			@Override
-			public void run() {
-				performShutdown();
-			}
-		};
-
-		// Schedule after 5 minutes.
-		timer.schedule(shutdownTask, 300000);
-	}
-
-	private void cancelShutdown() {
-		if (shutdownTask != null) {
-			shutdownTask.cancel();
-		}
-		timer.purge();
-	}
-
-	private void performShutdown() {
-		ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
-		if (network != null) {
-			Thread.currentThread().setContextClassLoader(network.getClass().getClassLoader());
-			try {
-				network.getGateway().close();
-			} finally {
-				Thread.currentThread().setContextClassLoader(contextClassLoader);
-			}
-		}
-		network = null;
-		contract = null;
 	}
 
 	@PostConstruct
@@ -266,6 +223,11 @@ public class FabricContext {
 				network = gateway.getNetwork(properties.getChannel());
 			}
 			contract = new FabricContract((ContractImpl) network.getContract(properties.getChaincode().getIdentify()));
+			FabricGatewayProperties gatewayProps = properties.getGateway();
+			if (gatewayProps != null) {
+				contract.setOrdererTimeout(gatewayProps.getOrdererTimeout());
+				contract.setProposalTimeout(gatewayProps.getProposalTimeout());
+			}
 		}
 		return contract;
 	}
@@ -285,8 +247,6 @@ public class FabricContext {
 			return FabricQueryResponse.create(payload, queryRequest.type);
 		} catch (Exception e) {
 			return FabricQueryResponse.failure(e.getMessage());
-		} finally {
-			aboutToShutdown();
 		}
 	}
 
@@ -326,8 +286,6 @@ public class FabricContext {
 			return results;
 		} catch (Exception e) {
 			return FabricQueryResponse.failure(e.getMessage());
-		} finally {
-			aboutToShutdown();
 		}
 	}
 
@@ -357,8 +315,6 @@ public class FabricContext {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return FabricResponse.fail(e.getMessage());
-		} finally {
-			aboutToShutdown();
 		}
 	}
 
@@ -384,8 +340,6 @@ public class FabricContext {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return FabricQueryResponse.failure(e.getLocalizedMessage());
-		} finally {
-			aboutToShutdown();
 		}
 	}
 
@@ -401,8 +355,6 @@ public class FabricContext {
 
 		} catch (Exception e) {
 			return FabricQueryResponse.failure(e.getLocalizedMessage());
-		} finally {
-			aboutToShutdown();
 		}
 	}
 
@@ -417,8 +369,6 @@ public class FabricContext {
 			return FabricQueryResponse.success(FabricBlock.create(block));
 		} catch (Exception e) {
 			return FabricQueryResponse.failure(e.getLocalizedMessage());
-		} finally {
-			aboutToShutdown();
 		}
 	}
 
@@ -434,8 +384,6 @@ public class FabricContext {
 			return FabricQueryResponse.success(FabricBlock.create(block));
 		} catch (Exception e) {
 			return FabricQueryResponse.failure(e.getLocalizedMessage());
-		} finally {
-			aboutToShutdown();
 		}
 	}
 
@@ -481,8 +429,6 @@ public class FabricContext {
 
 		} catch (Exception e) {
 			return FabricQueryResponse.failure(e.getLocalizedMessage());
-		} finally {
-			aboutToShutdown();
 		}
 	}
 
@@ -527,8 +473,6 @@ public class FabricContext {
 			return FabricQueryResponse.success(rwSet);
 		} catch (Exception e) {
 			return FabricQueryResponse.failure(e.getLocalizedMessage());
-		} finally {
-			aboutToShutdown();
 		}
 	}
 
@@ -576,8 +520,6 @@ public class FabricContext {
 			return FabricQueryResponse.success(tx);
 		} catch (Exception e) {
 			return FabricQueryResponse.failure(e.getLocalizedMessage());
-		} finally {
-			aboutToShutdown();
 		}
 	}
 }
