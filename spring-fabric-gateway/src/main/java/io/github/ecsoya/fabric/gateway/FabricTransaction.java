@@ -229,4 +229,14 @@ public class FabricTransaction implements Transaction {
 		this.proposalTimeout = proposalTimeout;
 	}
 
+	@Override
+	public String getTransactionId() {
+		return delegate.getTransactionId();
+	}
+
+	@Override
+	public Transaction setCommitHandler(CommitHandlerFactory commitHandler) {
+		return delegate.setCommitHandler(commitHandler);
+	}
+
 }

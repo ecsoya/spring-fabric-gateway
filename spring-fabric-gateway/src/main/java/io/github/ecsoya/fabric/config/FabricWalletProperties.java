@@ -1,9 +1,9 @@
 package io.github.ecsoya.fabric.config;
 
+import org.hyperledger.fabric.gateway.Identity;
 import org.hyperledger.fabric.gateway.Wallet;
-import org.hyperledger.fabric.gateway.impl.FileSystemWallet;
-import org.hyperledger.fabric.gateway.impl.InMemoryWallet;
-import org.hyperledger.fabric.gateway.impl.WalletIdentity;
+import org.hyperledger.fabric.gateway.impl.identity.FileSystemWalletStore;
+import org.hyperledger.fabric.gateway.impl.identity.InMemoryWalletStore;
 
 import lombok.Data;
 
@@ -12,7 +12,7 @@ import lombok.Data;
  * 
  * @author Jin Liu (jin.liu@soyatec.com)
  * @see Wallet
- * @see WalletIdentity
+ * @see Identity
  */
 @Data
 public class FabricWalletProperties {
@@ -20,20 +20,20 @@ public class FabricWalletProperties {
 	/**
 	 * Using memory wallet or not.
 	 * 
-	 * @see InMemoryWallet
-	 * @see FileSystemWallet
+	 * @see InMemoryWalletStore
+	 * @see FileSystemWalletStore
 	 */
 	private boolean memory = true;
 
 	/**
-	 * The wallet file path for using {@link FileSystemWallet}.
+	 * The wallet file path for using {@link FileSystemWalletStore}.
 	 */
 	private String file;
 
 	/**
 	 * The default identify of wallet.
 	 * 
-	 * @see WalletIdentity
+	 * @see Identity
 	 */
 	private String identity = "admin";
 

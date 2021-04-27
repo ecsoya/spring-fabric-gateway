@@ -31,3 +31,5 @@ target/
 .idea
 
 .DS_Store
+
+.factorypath

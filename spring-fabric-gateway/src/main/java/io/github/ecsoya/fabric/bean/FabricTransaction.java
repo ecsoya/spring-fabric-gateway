@@ -2,7 +2,7 @@ package io.github.ecsoya.fabric.bean;
 
 import java.util.Date;
 
-import org.hyperledger.fabric.protos.peer.FabricTransaction.TxValidationCode;
+import org.hyperledger.fabric.protos.peer.TransactionPackage.TxValidationCode;
 import org.hyperledger.fabric.sdk.BlockInfo.EnvelopeInfo;
 import org.hyperledger.fabric.sdk.BlockInfo.EnvelopeType;
 

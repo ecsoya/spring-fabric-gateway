@@ -1,12 +1,14 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.ecsoya/spring-fabric-gateway/badge.svg?style=plastic)](https://maven-badges.herokuapp.com/maven-central/io.github.ecsoya/spring-fabric-gateway)
 
+
+
 # Spring Fabric Gateway
 
 Provided Spring MVC services and spring boot starters based on [fabric-gateway-java](https://github.com/hyperledger/fabric-gateway-java), more info can be found from [https://ecsoya.github.io/fabric/](https://ecsoya.github.io/fabric/)(中文).
 
 ### Dependencies
 
-1. Build your fabric network with Hyperledger Fabric 1.4.0 +.
+1. Build your fabric network with Hyperledger Fabric v2.3.0.
 
 2. Optional, install the default common [Chaincode](https://github.com/ecsoya/spring-fabric-gateway/raw/master/spring-fabric-gateway/src/chaincode/common/chaincode.go).
 
@@ -25,7 +27,7 @@ Firstly, add the following dependency to your project's `pom.xml` file:
 <dependency>
 	<groupId>io.github.ecsoya</groupId>
 	<artifactId>fabric-gateway-spring-boot-starter</artifactId>
-	<version>1.0.5</version>
+	<version>2.0.0-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -36,7 +38,7 @@ or
 <dependency>
 	<groupId>io.github.ecsoya</groupId>
 	<artifactId>fabric-explorer-spring-boot-starter</artifactId>
-	<version>1.0.5</version>
+	<version>2.0.0-SNAPSHOT</version>
 </dependency>
 ```
 

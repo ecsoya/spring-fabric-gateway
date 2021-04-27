@@ -13,13 +13,13 @@ import javax.annotation.PostConstruct;
 import org.apache.commons.codec.binary.Hex;
 import org.hyperledger.fabric.gateway.Contract;
 import org.hyperledger.fabric.gateway.Gateway;
+import org.hyperledger.fabric.gateway.Identities;
+import org.hyperledger.fabric.gateway.Identity;
 import org.hyperledger.fabric.gateway.Network;
 import org.hyperledger.fabric.gateway.Wallet;
-import org.hyperledger.fabric.gateway.Wallet.Identity;
+import org.hyperledger.fabric.gateway.Wallets;
 import org.hyperledger.fabric.gateway.impl.ContractImpl;
-import org.hyperledger.fabric.gateway.impl.InMemoryWallet;
-import org.hyperledger.fabric.gateway.impl.WalletIdentity;
-import org.hyperledger.fabric.protos.peer.FabricTransaction.TxValidationCode;
+import org.hyperledger.fabric.protos.peer.TransactionPackage.TxValidationCode;
 import org.hyperledger.fabric.sdk.BlockInfo;
 import org.hyperledger.fabric.sdk.BlockInfo.EnvelopeInfo;
 import org.hyperledger.fabric.sdk.BlockInfo.EnvelopeInfo.IdentitiesInfo;
@@ -155,30 +155,9 @@ public class FabricContext {
 			logger.debug("Initialize Fabric Context: missing identity for wallet, and using default value: admin");
 		}
 
-		Wallet wallet = createWallet(walletProps);
-
-		if (wallet instanceof InMemoryWallet) {
-			OrgInfo client = config.getClientOrganization();
-			if (client != null) {
-				UserInfo peerAdmin = client.getPeerAdmin();
-				if (peerAdmin != null) {
-					Enrollment enrollment = peerAdmin.getEnrollment();
-					if (enrollment != null) {
-						Identity admin = new WalletIdentity(peerAdmin.getMspId(), enrollment.getCert(),
-								enrollment.getKey());
-						try {
-							wallet.put(identityName, admin);
-						} catch (IOException e) {
-							throw new FabricException("Initialize Wallet failed", e);
-						}
-						logger.debug("Initialize Wallet " + identityName);
-					}
-				}
-			}
-		}
-
+		Wallet wallet = createWallet(config, walletProps);
 		try {
-			if (!wallet.exists(identityName)) {
+			if (wallet == null || wallet.get(identityName) == null) {
 				throw new FabricException("Initialize Wallet failed, there's no identity = '" + identityName
 						+ "' exists in wallet directory: " + walletProps.getFile());
 			}
@@ -204,16 +183,52 @@ public class FabricContext {
 
 	}
 
-	private Wallet createWallet(FabricWalletProperties config) {
+	private Wallet createWallet(NetworkConfig networkConfig, FabricWalletProperties walletConfig) {
+		Wallet wallet = newFileSystemWallet(walletConfig);
+		if (wallet == null) {
+			wallet = newInMemoryWallet(networkConfig, walletConfig);
+		}
+		return wallet;
+	}
+
+	private Wallet newFileSystemWallet(FabricWalletProperties config) {
 		if (config == null || config.isMemory() || config.getFile() == null || config.getFile().equals("")) {
-			return Wallet.createInMemoryWallet();
+			return null;
 		} else {
 			try {
-				return Wallet.createFileSystemWallet(new File(config.getFile()).toPath());
+				return Wallets.newFileSystemWallet(new File(config.getFile()).toPath());
 			} catch (IOException e) {
-				return Wallet.createInMemoryWallet();
+				return null;
 			}
 		}
+	}
+
+	private Wallet newInMemoryWallet(NetworkConfig network, FabricWalletProperties walletProps) {
+		Wallet wallet = Wallets.newInMemoryWallet();
+		if (network != null) {
+			String identityName = walletProps.getIdentity();
+			if (identityName == null || identityName.equals("")) {
+				identityName = "admin";
+				logger.debug("Initialize Fabric Context: missing identity for wallet, and using default value: admin");
+			}
+			OrgInfo client = network.getClientOrganization();
+			if (client != null) {
+				UserInfo peerAdmin = client.getPeerAdmin();
+				if (peerAdmin != null) {
+					Enrollment enrollment = peerAdmin.getEnrollment();
+					if (enrollment != null) {
+						try {
+							Identity admin = Identities.newX509Identity(peerAdmin.getMspId(), enrollment);
+							wallet.put(identityName, admin);
+						} catch (Exception e) {
+							throw new FabricException("Initialize Wallet failed", e);
+						}
+						logger.debug("Initialize Wallet " + identityName);
+					}
+				}
+			}
+		}
+		return wallet;
 	}
 
 	private FabricContract getContract() {
