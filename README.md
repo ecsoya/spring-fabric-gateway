@@ -21,13 +21,17 @@ Provided Spring MVC services and spring boot starters based on [fabric-gateway-j
 
 ##### Spring Boot Configure:
 
+SNAPSHOT: 2.0.1-SNAPSHOT
+
+PUBLISH: [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.ecsoya/spring-fabric-gateway/badge.svg?style=plastic)](https://maven-badges.herokuapp.com/maven-central/io.github.ecsoya/spring-fabric-gateway)
+
 Firstly, add the following dependency to your project's `pom.xml` file:
 
 ```
 <dependency>
 	<groupId>io.github.ecsoya</groupId>
 	<artifactId>fabric-gateway-spring-boot-starter</artifactId>
-	<version>2.0.0-SNAPSHOT</version>
+	<version>${latest_version}</version>
 </dependency>
 ```
 
@@ -38,8 +42,17 @@ or
 <dependency>
 	<groupId>io.github.ecsoya</groupId>
 	<artifactId>fabric-explorer-spring-boot-starter</artifactId>
-	<version>2.0.0-SNAPSHOT</version>
+	<version>${latest_version}</version>
 </dependency>
+```
+
+```
+<repositories>
+	<repository>
+		<id>ecsoya.io</id>
+		<url>https://repo.rdc.aliyun.com/repository/42210-snapshot-BITvCn/</url>
+	</repository>
+</repositories>
 ```
 
 Secondly, configure fabric network in `application.yml`
