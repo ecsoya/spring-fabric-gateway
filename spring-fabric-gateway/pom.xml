@@ -6,8 +6,7 @@
 	<parent>
 		<groupId>io.github.ecsoya</groupId>
 		<artifactId>spring-fabric-gateway-parent</artifactId>
-		<version>2.0.0</version>
-		<relativePath>..</relativePath>
+		<version>2.0.1</version>
 	</parent>
 	<artifactId>spring-fabric-gateway</artifactId>
 
