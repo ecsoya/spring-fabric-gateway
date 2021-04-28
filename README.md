@@ -23,7 +23,7 @@ Provided Spring MVC services and spring boot starters based on [fabric-gateway-j
 
 Firstly, add the following dependency to your project's `pom.xml` file:
 
-*Maven Central* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.ecsoya/spring-fabric-gateway/badge.svg?style=plastic)](https://maven-badges.herokuapp.com/maven-central/io.github.ecsoya/spring-fabric-gateway)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.ecsoya/spring-fabric-gateway/badge.svg?style=plastic)](https://maven-badges.herokuapp.com/maven-central/io.github.ecsoya/spring-fabric-gateway)
 
 ```
 <dependency>
@@ -44,7 +44,7 @@ or
 </dependency>
 ```
 
-*Snapshots* Same as Maven Central
+*Snapshots*
 
 ```
 <repositories>
@@ -55,7 +55,7 @@ or
 </repositories>
 ```
 
-*https://jitpack.io/* [![](https://jitpack.io/v/ecsoya/spring-fabric-gateway.svg)](https://jitpack.io/#ecsoya/spring-fabric-gateway)
+[![](https://jitpack.io/v/ecsoya/spring-fabric-gateway.svg)](https://jitpack.io/#ecsoya/spring-fabric-gateway)
 
 
 step1
