@@ -23,6 +23,7 @@
 		<module>spring-fabric-gateway</module>
 		<module>fabric-gateway-spring-boot-starter</module>
 		<module>fabric-explorer-spring-boot-starter</module>
+		<module>spring-fabric-gateway-chaincode</module>
 	</modules>
 	<dependencyManagement>
 		<dependencies>
@@ -30,11 +31,11 @@
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring.boot.version}</version> 
+				<version>${spring.boot.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.hyperledger.fabric</groupId>
 				<artifactId>fabric-gateway-java</artifactId>
@@ -74,6 +75,13 @@
 			</roles>
 		</developer>
 	</developers>
+
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
 
 	<profiles>
 		<profile>
@@ -220,4 +228,5 @@
 		</profile>
 
 	</profiles>
+
 </project>
