@@ -21,11 +21,9 @@ Provided Spring MVC services and spring boot starters based on [fabric-gateway-j
 
 ##### Spring Boot Configure:
 
-SNAPSHOT: 2.0.1-SNAPSHOT
-
-PUBLISH: [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.ecsoya/spring-fabric-gateway/badge.svg?style=plastic)](https://maven-badges.herokuapp.com/maven-central/io.github.ecsoya/spring-fabric-gateway)
-
 Firstly, add the following dependency to your project's `pom.xml` file:
+
+*Maven Central* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.ecsoya/spring-fabric-gateway/badge.svg?style=plastic)](https://maven-badges.herokuapp.com/maven-central/io.github.ecsoya/spring-fabric-gateway)
 
 ```
 <dependency>
@@ -46,6 +44,8 @@ or
 </dependency>
 ```
 
+*Snapshots* Same as Maven Central
+
 ```
 <repositories>
 	<repository>
@@ -53,6 +53,30 @@ or
 		<url>https://repo.rdc.aliyun.com/repository/42210-snapshot-BITvCn/</url>
 	</repository>
 </repositories>
+```
+
+*https://jitpack.io/* [![](https://jitpack.io/v/ecsoya/spring-fabric-gateway.svg)](https://jitpack.io/#ecsoya/spring-fabric-gateway)
+
+
+step1
+
+```
+	<repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+```
+
+step2
+
+```
+<dependency>
+	    <groupId>com.github.ecsoya.spring-fabric-gateway</groupId>
+	    <artifactId>spring-fabric-gateway</artifactId>
+	    <version>2.0.1-SNAPSHOT</version>
+	</dependency>
 ```
 
 Secondly, configure fabric network in `application.yml`
