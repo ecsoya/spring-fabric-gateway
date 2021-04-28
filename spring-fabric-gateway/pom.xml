@@ -6,16 +6,10 @@
 	<parent>
 		<groupId>io.github.ecsoya</groupId>
 		<artifactId>spring-fabric-gateway-parent</artifactId>
-		<version>2.0.0-SNAPSHOT</version>
+		<version>2.0.0</version>
 		<relativePath>..</relativePath>
 	</parent>
 	<artifactId>spring-fabric-gateway</artifactId>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<org.springframework.version>5.2.2.RELEASE</org.springframework.version>
-		<fabric.gateway.version>2.2.1</fabric.gateway.version>
-	</properties>
 
 	<name>spring-fabric-gateway</name>
 	<url>https://github.com/ecsoya/spring-fabric-gateway</url>
@@ -25,7 +19,6 @@
 		<dependency>
 			<groupId>org.hyperledger.fabric</groupId>
 			<artifactId>fabric-gateway-java</artifactId>
-			<version>${fabric.gateway.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>commons-logging</groupId>
@@ -37,13 +30,11 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.29</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.10</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
@@ -174,7 +165,7 @@
 					</plugin>
 
 					<!-- Javadoc -->
-					<plugin>
+					<!-- <plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
 						<version>3.1.1</version>
@@ -194,7 +185,7 @@
 								</goals>
 							</execution>
 						</executions>
-					</plugin>
+					</plugin> -->
 
 					<plugin>
 						<groupId>org.springframework.boot</groupId>

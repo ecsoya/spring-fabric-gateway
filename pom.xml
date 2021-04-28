@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.ecsoya</groupId>
 	<artifactId>spring-fabric-gateway-parent</artifactId>
-	<version>2.0.0-SNAPSHOT</version>
+	<version>2.0.0</version>
 	<packaging>pom</packaging>
 
 	<name>spring-fabric-gateway-parent</name>
@@ -14,6 +14,9 @@
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<fabric.gateway.version>2.2.1</fabric.gateway.version>
+		<spring.boot.version>2.4.1</spring.boot.version>
 	</properties>
 
 	<modules>
@@ -21,7 +24,35 @@
 		<module>fabric-gateway-spring-boot-starter</module>
 		<module>fabric-explorer-spring-boot-starter</module>
 	</modules>
+	<dependencyManagement>
+		<dependencies>
 
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring.boot.version}</version> 
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.hyperledger.fabric</groupId>
+				<artifactId>fabric-gateway-java</artifactId>
+				<version>${fabric.gateway.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.ecsoya</groupId>
+				<artifactId>fabric-gateway-spring-boot-starter</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.ecsoya</groupId>
+				<artifactId>fabric-explorer-spring-boot-starter</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
 
 	<licenses>
 		<license>
@@ -32,12 +63,12 @@
 
 	<scm>
 		<url>https://github.com/hyperledger/fabric-gateway-java</url>
-		<developerConnection>ecsoya (jin.liu@soyatec.com)</developerConnection>
+		<developerConnection>angryred (angryred@qq.com)</developerConnection>
 	</scm>
 	<developers>
 		<developer>
-			<name>ecsoya</name>
-			<email>jin.liu@soyatec.com</email>
+			<name>angryred</name>
+			<email>angryred@qq.com</email>
 			<roles>
 				<role>developer</role>
 			</roles>
@@ -53,7 +84,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-source-plugin</artifactId>
-						<version>3.2.0</version>
+						<version>3.2.1</version>
 						<configuration>
 							<attach>true</attach>
 						</configuration>
@@ -71,7 +102,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>3.1.1</version>
+						<version>3.2.0</version>
 						<configuration>
 							<show>private</show>
 							<nohelp>true</nohelp>
@@ -135,7 +166,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-source-plugin</artifactId>
-						<version>3.2.0</version>
+						<version>3.2.1</version>
 						<configuration>
 							<attach>true</attach>
 						</configuration>
@@ -153,7 +184,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>3.1.1</version>
+						<version>3.2.0</version>
 						<configuration>
 							<show>private</show>
 							<nohelp>true</nohelp>

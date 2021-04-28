@@ -68,8 +68,7 @@ public class FabricGson {
 	}
 
 	public static <T> List<T> buildList(String json, Class<T> type) {
-		JsonParser parser = new JsonParser();
-		JsonElement element = parser.parse(json);
+		JsonElement element = JsonParser.parseString(json);
 		return buildList(element, type);
 	}
 

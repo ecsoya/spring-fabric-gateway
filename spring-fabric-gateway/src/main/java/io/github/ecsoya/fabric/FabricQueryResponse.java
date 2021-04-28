@@ -146,9 +146,8 @@ public class FabricQueryResponse<T> extends FabricResponse {
 	}
 
 	private static <T> FabricQueryResponse<List<T>> parsePayloadMany(String json, Class<T> type) {
-		JsonParser parser = new JsonParser();
 		try {
-			JsonElement element = parser.parse(json);
+			JsonElement element = JsonParser.parseString(json);
 
 			JsonArray array = null;
 			JsonElement meta = null;

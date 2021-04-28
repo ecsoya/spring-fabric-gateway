@@ -83,7 +83,7 @@ public class FabricTransactionRW {
 	 */
 	private static String simplifier(String value) {
 		try {
-			JsonElement tree = new JsonParser().parse(value);
+			JsonElement tree = JsonParser.parseString(value);
 			if (tree.isJsonObject()) {
 				JsonObject obj = tree.getAsJsonObject();
 				JsonElement valuesObj = obj.get("values");
