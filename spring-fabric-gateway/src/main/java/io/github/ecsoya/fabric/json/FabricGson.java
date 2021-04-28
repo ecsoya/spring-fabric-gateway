@@ -40,6 +40,11 @@ public class FabricGson {
 	public static String stringify(Object object) {
 		if (object == null) {
 			return null;
+		} else if (object instanceof JsonElement) {
+			JsonElement element = (JsonElement) object;
+			if (element.isJsonPrimitive()) {
+				return element.getAsString();
+			}
 		}
 		return gson.toJson(object);
 	}
