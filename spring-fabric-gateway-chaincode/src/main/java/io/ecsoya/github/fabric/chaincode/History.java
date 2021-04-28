@@ -1,5 +1,7 @@
 package io.ecsoya.github.fabric.chaincode;
 
+import java.util.Objects;
+
 import org.hyperledger.fabric.contract.annotation.DataType;
 import org.hyperledger.fabric.contract.annotation.Property;
 
@@ -51,8 +53,30 @@ public class History {
 	}
 
 	@Override
+	public int hashCode() {
+		return Objects.hash(getTxId(), getTimestamp(), getIsDelete(), getValue());
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if ((obj == null) || (getClass() != obj.getClass())) {
+			return false;
+		}
+
+		History other = (History) obj;
+
+		return Objects.deepEquals(new Object[] { getTxId(), getTimestamp(), getIsDelete(), getValue() },
+				new Object[] { other.getTxId(), other.getTimestamp(), other.getIsDelete(), other.getValue() });
+	}
+
+	@Override
 	public String toString() {
-		return JSON.stringify(this);
+		return this.getClass().getSimpleName() + "@" + Integer.toHexString(hashCode()) + " [txId=" + txId
+				+ ", timestamp=" + timestamp + ", isDelete=" + isDelete + ", value=" + value + "]";
 	}
 
 }

@@ -1,5 +1,7 @@
 package io.ecsoya.github.fabric.chaincode;
 
+import java.util.Objects;
+
 import org.hyperledger.fabric.contract.annotation.DataType;
 import org.hyperledger.fabric.contract.annotation.Property;
 
@@ -29,7 +31,29 @@ public class Query {
 	}
 
 	@Override
+	public int hashCode() {
+		return Objects.hash(getData(), getMeta());
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if ((obj == null) || (getClass() != obj.getClass())) {
+			return false;
+		}
+
+		Query other = (Query) obj;
+
+		return Objects.deepEquals(new Object[] { getData(), getMeta() },
+				new Object[] { other.getData(), other.getMeta() });
+	}
+
+	@Override
 	public String toString() {
-		return JSON.stringify(this);
+		return this.getClass().getSimpleName() + "@" + Integer.toHexString(hashCode()) + " [data=" + data + ", meta="
+				+ meta + "]";
 	}
 }
