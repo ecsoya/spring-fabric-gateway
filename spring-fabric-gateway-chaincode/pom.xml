@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>io.github.ecsoya</groupId>
 		<artifactId>spring-fabric-gateway-parent</artifactId>
-		<version>2.0.2-SNAPSHOT</version>
+		<version>2.0.3-SNAPSHOT</version>
 	</parent>
 	<artifactId>spring-fabric-gateway-chaincode</artifactId>
 	<name>spring-fabric-gateway-chaincode</name>

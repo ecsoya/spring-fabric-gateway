@@ -50,9 +50,11 @@ public class FabricTransactionRW {
 		txRead.setIndex(index);
 		String key = read.getKey();
 		String[] split = key.split(DELIMITER, 0);
-		if (split.length != 0) {
+		if (split.length >= 2) {
 			txRead.setKey(split[split.length - 1]);
 			txRead.setType(split[split.length - 2]);
+		} else {
+			txRead.setKey(key);
 		}
 		Version version = read.getVersion();
 		if (version != null) {
@@ -69,9 +71,11 @@ public class FabricTransactionRW {
 		txWrite.setIndex(index);
 		String compositeKey = write.getKey();
 		String[] split = compositeKey.split(DELIMITER, 0);
-		if (split.length != 0) {
+		if (split.length >= 2) {
 			txWrite.setKey(split[split.length - 1]);
 			txWrite.setType(split[split.length - 2]);
+		} else {
+			txWrite.setKey(compositeKey);
 		}
 		txWrite.setValue(simplifier(write.getValue().toStringUtf8()));
 		txWrite.setRemarks(Boolean.toString(write.getIsDelete()));

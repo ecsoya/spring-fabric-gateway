@@ -20,12 +20,12 @@ public class FabricTransactionRWSet {
 	/**
 	 * Read transactions.
 	 */
-	private List<FabricTransactionRW> reads;
+	private List<FabricTransactionRW> reads = new ArrayList<FabricTransactionRW>();
 
 	/**
 	 * Write transactions.
 	 */
-	private List<FabricTransactionRW> writes;
+	private List<FabricTransactionRW> writes = new ArrayList<FabricTransactionRW>();
 
 	public void setReads(List<KVRead> readsList) {
 		reads = new ArrayList<>();
@@ -42,6 +42,32 @@ public class FabricTransactionRWSet {
 			for (int i = 0; i < writesList.size(); i++) {
 				writes.add(FabricTransactionRW.fromWrite(i, writesList.get(i)));
 			}
+		}
+	}
+
+	public void addReads(List<KVRead> readsList) {
+		if (readsList == null || readsList.isEmpty()) {
+			return;
+		}
+		for (int i = 0; i < readsList.size(); i++) {
+			FabricTransactionRW r = FabricTransactionRW.fromRead(reads.size(), readsList.get(i));
+			if (r == null) {
+				continue;
+			}
+			reads.add(r);
+		}
+	}
+
+	public void addWrites(List<KVWrite> writesList) {
+		if (writesList == null || writesList.isEmpty()) {
+			return;
+		}
+		for (int i = 0; i < writesList.size(); i++) {
+			FabricTransactionRW w = FabricTransactionRW.fromWrite(writes.size(), writesList.get(i));
+			if (w == null) {
+				continue;
+			}
+			writes.add(w);
 		}
 	}
 }
