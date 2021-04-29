@@ -1,4 +1,5 @@
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.ecsoya/spring-fabric-gateway/badge.svg?style=plastic)](https://maven-badges.herokuapp.com/maven-central/io.github.ecsoya/spring-fabric-gateway)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.ecsoya/spring-fabric-gateway/badge.svg?style=plastic)](https://maven-badges.herokuapp.com/maven-central/io.github.ecsoya/spring-fabric-gateway) [![](https://jitpack.io/v/ecsoya/spring-fabric-gateway.svg)](https://jitpack.io/#ecsoya/spring-fabric-gateway)
+
 
 
 
@@ -10,7 +11,7 @@ Provided Spring MVC services and spring boot starters based on [fabric-gateway-j
 
 1. Build your fabric network with Hyperledger Fabric v2.3.0.
 
-2. Optional, install the default common [Chaincode](https://github.com/ecsoya/spring-fabric-gateway/raw/master/spring-fabric-gateway/src/chaincode/common/chaincode.go).
+2. Optional, install the default common chaincode [go](https://github.com/ecsoya/spring-fabric-gateway/raw/master/spring-fabric-gateway/src/chaincode/common/chaincode.go) or [Java](https://github.com/ecsoya/spring-fabric-gateway/spring-fabric-gateway-chaincode).
 
 ### Springboot Starters
 
@@ -61,22 +62,22 @@ or
 step1
 
 ```
-	<repositories>
-		<repository>
-		    <id>jitpack.io</id>
-		    <url>https://jitpack.io</url>
-		</repository>
-	</repositories>
+<repositories>
+	<repository>
+	    <id>jitpack.io</id>
+	    <url>https://jitpack.io</url>
+	</repository>
+</repositories>
 ```
 
 step2
 
 ```
 <dependency>
-	    <groupId>com.github.ecsoya.spring-fabric-gateway</groupId>
-	    <artifactId>spring-fabric-gateway</artifactId>
-	    <version>2.0.1-SNAPSHOT</version>
-	</dependency>
+	<groupId>com.github.ecsoya.spring-fabric-gateway</groupId>
+	<artifactId>spring-fabric-gateway</artifactId>
+	<version>${latest_version}</version>
+</dependency>
 ```
 
 Secondly, configure fabric network in `application.yml`
@@ -142,5 +143,6 @@ This will help you to build a simple fabric explorer with few codes.
 
 ### References
 
-1. [Hyperledger Fabric Gateway SDK for Java](https://github.com/hyperledger/fabric-gateway-java)
-2. [Java SDK for Hyperledger Fabric](https://github.com/hyperledger/fabric-sdk-java)
+1. [Fabric开发手册](https://ecsoya.github.io/fabric/)
+2. [Hyperledger Fabric Gateway SDK for Java](https://github.com/hyperledger/fabric-gateway-java)
+3. [Java SDK for Hyperledger Fabric](https://github.com/hyperledger/fabric-sdk-java)
