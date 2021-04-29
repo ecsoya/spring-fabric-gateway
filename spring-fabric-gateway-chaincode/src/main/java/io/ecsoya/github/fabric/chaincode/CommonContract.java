@@ -141,7 +141,7 @@ public class CommonContract implements ContractInterface {
 	 * @return Records
 	 */
 	@Transaction
-	public List<Record> list(Context context, String startKey, String endKey) {
+	public Record[] list(Context context, String startKey, String endKey) {
 		log.info("CommonContract.list: startKey=" + startKey + ", endKey=" + endKey);
 		if (startKey == null) {
 			startKey = "";
@@ -156,7 +156,7 @@ public class CommonContract implements ContractInterface {
 			records.add(new Record(value.getKey(), value.getStringValue()));
 		});
 		log.info("CommonContract.list: " + JSON.stringify(records));
-		return records;
+		return records.toArray(new Record[records.size()]);
 	}
 
 	/**
@@ -264,7 +264,7 @@ public class CommonContract implements ContractInterface {
 	 * @return Chaincode.Response
 	 */
 	@Transaction
-	public List<History> history(Context context, String type, String key) {
+	public History[] history(Context context, String type, String key) {
 		log.info("CommonContract.history: type=" + type + ", key=" + key);
 		ChaincodeStub stub = context.getStub();
 		String compositeKey = getCompositeKey(stub, type, key);
@@ -282,9 +282,10 @@ public class CommonContract implements ContractInterface {
 					his.setValue(mod.getStringValue());
 				}
 				his.setIsDelete(mod.isDeleted());
+				histories.add(his);
 			});
 		}
 		log.info("CommonContract.history: " + JSON.stringify(histories));
-		return histories;
+		return histories.toArray(new History[histories.size()]);
 	}
 }

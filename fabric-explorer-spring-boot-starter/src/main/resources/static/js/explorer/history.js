@@ -65,6 +65,11 @@ function initDataTable() {
 						}, {
 							"name" : "timestamp",
 							"data" : function(row) {
+								if (!isNaN(row.timestamp)) {
+									var time = new Date();
+									time.setTime(row.timestamp);
+									return format(time);
+								}
 								return format(row.timestamp);
 							}
 						}, {
