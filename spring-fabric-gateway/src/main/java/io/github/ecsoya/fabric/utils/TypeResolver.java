@@ -43,6 +43,7 @@ import sun.misc.Unsafe;
  *
  * @author Jonathan Halterman
  */
+@SuppressWarnings("restriction")
 public final class TypeResolver {
 	/** Cache of type variable/argument pairs */
 	private static final Map<Class<?>, Reference<Map<TypeVariable<?>, Type>>> TYPE_VARIABLE_CACHE = Collections

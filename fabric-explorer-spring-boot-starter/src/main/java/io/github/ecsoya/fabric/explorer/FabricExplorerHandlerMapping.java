@@ -29,7 +29,6 @@ public class FabricExplorerHandlerMapping extends RequestMappingHandlerMapping {
 	@Autowired
 	private FabricExplorerProperties properties;
 
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void registerHandlerMethod(Object handler, Method method, RequestMappingInfo mapping) {
 		String path = properties.getPath();
