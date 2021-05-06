@@ -60,6 +60,8 @@ public class CommonContract implements ContractInterface {
 		if (value == null) {
 			return Boolean.FALSE;
 		}
+		log.info("CommonContract.create: compositeKey=" + compositeKey);
+		log.info("CommonContract.create: value=" + value);
 		stub.putStringState(compositeKey.toString(), value);
 		return Boolean.TRUE;
 	}
@@ -90,6 +92,7 @@ public class CommonContract implements ContractInterface {
 		}
 		ChaincodeStub stub = context.getStub();
 		String compositeKey = getCompositeKey(stub, type, key);
+		log.info("CommonContract.get: compositeKey=" + compositeKey);
 		return stub.getState(compositeKey);
 	}
 
@@ -111,7 +114,7 @@ public class CommonContract implements ContractInterface {
 		if (value == null) {
 			return Boolean.FALSE;
 		}
-		stub.putStringState(compositeKey.toString(), value);
+		stub.putStringState(compositeKey, value);
 		return Boolean.TRUE;
 	}
 
@@ -179,7 +182,9 @@ public class CommonContract implements ContractInterface {
 					.getQueryResultWithPagination(query, pageSize, bookmark);
 			List<String> values = new ArrayList<String>();
 			queryResultWithPagination.forEach(keyValue -> {
-				values.add(keyValue.getStringValue());
+				String val = keyValue.getStringValue();
+				log.info("CommonContract.query: keyValue=" + val);
+				values.add(val);
 			});
 			response.setData(values.toArray(new String[values.size()]));
 			QueryResponseMetadata metadata = queryResultWithPagination.getMetadata();
@@ -193,7 +198,9 @@ public class CommonContract implements ContractInterface {
 			QueryResultsIterator<KeyValue> queryResult = stub.getQueryResult(query);
 			List<String> values = new ArrayList<String>();
 			queryResult.forEach(keyValue -> {
-				values.add(keyValue.getStringValue());
+				String val = keyValue.getStringValue();
+				log.info("CommonContract.query: key=" + keyValue.getKey() + ", value=" + val);
+				values.add(val);
 			});
 			response.setData(values.toArray(new String[values.size()]));
 		}

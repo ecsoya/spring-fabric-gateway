@@ -1,5 +1,6 @@
 package io.ecsoya.github.fabric.chaincode;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 import org.hyperledger.fabric.contract.annotation.DataType;
@@ -53,7 +54,7 @@ public class Query {
 
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName() + "@" + Integer.toHexString(hashCode()) + " [data=" + data + ", meta="
-				+ meta + "]";
+		return this.getClass().getSimpleName() + "@" + Integer.toHexString(hashCode()) + " [data="
+				+ Arrays.toString(data) + ", meta=" + meta + "]";
 	}
 }
