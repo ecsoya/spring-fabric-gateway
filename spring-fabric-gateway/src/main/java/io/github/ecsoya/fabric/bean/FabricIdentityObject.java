@@ -19,4 +19,5 @@ public class FabricIdentityObject implements IFabricIdentityObject {
 	@Expose(serialize = true, deserialize = false)
 	@Setter(AccessLevel.NONE)
 	private String type = getType();
+
 }
