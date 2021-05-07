@@ -7,6 +7,7 @@ import org.hyperledger.fabric.protos.ledger.rwset.kvrwset.KvRwset.Version;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
 import io.github.ecsoya.fabric.json.FabricGson;
 import lombok.Data;
@@ -95,7 +96,7 @@ public class FabricTransactionRW {
 					return FabricGson.stringify(valuesObj);
 				}
 			}
-		} catch (Exception e) {
+		} catch (JsonSyntaxException e) {
 			return value;
 		}
 		return value;

@@ -46,7 +46,7 @@ public class FabricBlock extends FabricIdentity {
 		try {
 			block.setChannel(blockInfo.getChannelId());
 		} catch (InvalidProtocolBufferException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		block.setDataHash(FabricUtil.hashToString(blockInfo.getDataHash()));
 		block.setTransactionCount(blockInfo.getTransactionCount());

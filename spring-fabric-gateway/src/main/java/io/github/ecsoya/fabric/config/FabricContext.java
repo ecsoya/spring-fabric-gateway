@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.io.IOUtils;
 import org.hyperledger.fabric.gateway.Contract;
 import org.hyperledger.fabric.gateway.Gateway;
 import org.hyperledger.fabric.gateway.Identities;
@@ -139,6 +140,10 @@ public class FabricContext {
 			config = NetworkConfig.fromYamlStream(configFile);
 		} catch (Exception e) {
 			throw new FabricException("Network config can not be loaded.", e);
+		} finally {
+			IOUtils.closeQuietly(configFile, e -> {
+				logger.warn("Close inputstream failed");
+			});
 		}
 		if (config == null) {
 			throw new FabricException(
@@ -174,6 +179,10 @@ public class FabricContext {
 			builder.discovery(gatewayProps.isDiscovery());
 		} catch (IOException e) {
 			throw new FabricException("Initialize Gateway failed", e);
+		} finally {
+			IOUtils.closeQuietly(configFile, e -> {
+				logger.warn("Close inputstream failed");
+			});
 		}
 		Gateway gateway = builder.connect();
 
@@ -328,7 +337,7 @@ public class FabricContext {
 			String result = contract.executeTransaction(request.function, request.arguments);
 			return FabricResponse.ok().setTransactionId(result);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Execute failed: " + e.getLocalizedMessage());
 			return FabricResponse.fail(e.getMessage());
 		}
 	}
@@ -353,7 +362,7 @@ public class FabricContext {
 			ledger.setPeers(properties.getPeers());
 			return FabricQueryResponse.success(ledger);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Execute failed: " + e.getLocalizedMessage());
 			return FabricQueryResponse.failure(e.getLocalizedMessage());
 		}
 	}

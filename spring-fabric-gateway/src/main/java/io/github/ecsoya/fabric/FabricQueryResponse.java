@@ -166,9 +166,11 @@ public class FabricQueryResponse<T> extends FabricResponse {
 			}
 			List<T> results = new ArrayList<>();
 
-			for (JsonElement child : array) {
-				T value = FabricUtil.build(FabricGson.stringify(child), type);
-				results.add(value);
+			if (array != null) {
+				for (JsonElement child : array) {
+					T value = FabricUtil.build(FabricGson.stringify(child), type);
+					results.add(value);
+				}
 			}
 			FabricQueryResponse<List<T>> res = success(results);
 
