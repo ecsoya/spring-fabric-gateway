@@ -139,7 +139,7 @@ The chaincode source can be found from [here](https://github.com/ecsoya/spring-f
 
 This will help you to build a simple fabric explorer with few codes.
 
-![Fabric Explorer](https://github.com/ecsoya/spring-fabric-gateway/raw/master/images/explorer-1.png)
+![Fabric Explorer](https://ecsoya.github.io/fabric/img/explorer-1.png)
 
 ### References
 
